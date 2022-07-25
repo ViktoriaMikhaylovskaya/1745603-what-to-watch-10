@@ -78,7 +78,7 @@ const Main = ({films}: Props): JSX.Element => {
 
             {
               films.map((film) => (
-                <FilmCard key={film.id} filmInfo={film}/>
+                <FilmCard key={film.id} filmInfo={film} />
               ))
             }
 

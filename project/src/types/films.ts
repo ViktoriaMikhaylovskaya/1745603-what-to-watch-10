@@ -10,4 +10,5 @@ export type FilmInfo = {
   text: string,
   director: string,
   actors: string,
+  time: string,
 }

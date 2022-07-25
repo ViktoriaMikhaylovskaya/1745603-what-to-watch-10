@@ -7,3 +7,7 @@ export { default as CatalogList } from './catalog-list/CatalogList';
 export { default as Video } from './video/Video';
 export { default as MiniPlayer } from './mini-player/MiniPlayer';
 export { default as Footer } from './footer/Footer';
+export { default as Overview } from './overview/Overview';
+export { default as Reviews } from './reviews/Reviews';
+export { default as Details } from './details/Details';
+export { default as FilmNavigation } from './film-nav/FilmNavigation';

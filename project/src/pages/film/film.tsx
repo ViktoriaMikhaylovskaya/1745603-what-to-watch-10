@@ -86,7 +86,7 @@ const Film = ({filmInfo}: Props): JSX.Element => {
 
           <div className="catalog__films-list">
             {
-              films.map((film) => (
+              films.slice(0, 4).map((film) => (
                 <FilmCard key={film.id} filmInfo={film} />
               ))
             }

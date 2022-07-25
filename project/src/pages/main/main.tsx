@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FilmCard, Logo, CatalogList } from 'src/components';
+import { FilmCard, Logo, CatalogList, Footer } from 'src/components';
 import {FilmInfo} from 'src/types/films';
 
 type Props = {
@@ -89,19 +89,7 @@ const Main = ({films}: Props): JSX.Element => {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light" href="/">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </section>
   );

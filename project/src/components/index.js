@@ -6,3 +6,4 @@ export { default as PrivateRoute } from './private-route/PrivateRoute';
 export { default as CatalogList } from './catalog-list/CatalogList';
 export { default as Video } from './video/Video';
 export { default as MiniPlayer } from './mini-player/MiniPlayer';
+export { default as Footer } from './footer/Footer';

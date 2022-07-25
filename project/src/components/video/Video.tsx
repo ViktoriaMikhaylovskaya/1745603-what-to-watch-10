@@ -29,7 +29,9 @@ const Video = ({src,autoPlay}: Props): JSX.Element => {
       element.pause();
     }
 
-    element.removeEventListener('loadeddata', loadingData);
+    return () => {
+      element.removeEventListener('loadeddata', loadingData);
+    };
   }, [isPlaying]);
 
   return (

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FilmCard, Logo } from 'src/components';
+import { FilmCard, Logo, Footer, FilmNavigation } from 'src/components';
 import { FilmInfo } from 'src/types/films';
 import { films } from 'src/mocks/films';
 
@@ -8,7 +8,7 @@ type Props= {
 };
 
 const Film = ({filmInfo}: Props): JSX.Element => {
-  const {genre, title, rating, src, ratingCount, text, release, director, actors} = filmInfo;
+  const {genre, title, src, release} = filmInfo;
 
   return (
     <section>
@@ -74,36 +74,7 @@ const Film = ({filmInfo}: Props): JSX.Element => {
                   <img src={src} alt="The Grand Budapest Hotel poster" width="218" height="327" />
                 </div>
 
-                <div className="film-card__desc">
-                  <nav className="film-nav film-card__nav">
-                    <ul className="film-nav__list">
-                      <li className="film-nav__item film-nav__item--active">
-                        <a href="/" className="film-nav__link">Overview</a>
-                      </li>
-                      <li className="film-nav__item">
-                        <a href="/" className="film-nav__link">Details</a>
-                      </li>
-                      <li className="film-nav__item">
-                        <a href="/" className="film-nav__link">Reviews</a>
-                      </li>
-                    </ul>
-                  </nav>
-
-                  <div className="film-rating">
-                    <div className="film-rating__score">{rating}</div>
-                    <p className="film-rating__meta">
-                      <span className="film-rating__level">Very good</span>
-                      <span className="film-rating__count">{ratingCount} ratings</span>
-                    </p>
-                  </div>
-
-                  <div className="film-card__text">
-                    {text}
-                    <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-                    <p className="film-card__starring"><strong>Starring: {actors} and other</strong></p>
-                  </div>
-                </div>
+                <FilmNavigation filmInfo={filmInfo}/>
               </div>
             </div> : null
         }
@@ -115,26 +86,14 @@ const Film = ({filmInfo}: Props): JSX.Element => {
 
           <div className="catalog__films-list">
             {
-              films.map((film) => (
+              films.slice(0, 4).map((film) => (
                 <FilmCard key={film.id} filmInfo={film} />
               ))
             }
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to="/" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </section>
   );

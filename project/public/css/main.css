@@ -526,7 +526,9 @@ main {
     margin-right: 0; }
 
 .catalog__genres-link {
-  display: block;
+  display: flex;
+  background-color: transparent;
+  border: none;
   color: #DFCF77;
   text-decoration: none;
   position: relative;

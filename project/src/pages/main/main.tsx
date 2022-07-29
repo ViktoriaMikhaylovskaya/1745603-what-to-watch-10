@@ -72,7 +72,7 @@ const Main = ({films}: Props): JSX.Element => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <CatalogList films={films}/>
+          <CatalogList />
 
         </section>
 

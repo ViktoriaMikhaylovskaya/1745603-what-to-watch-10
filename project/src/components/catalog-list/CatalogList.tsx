@@ -1,16 +1,29 @@
 import {useAppSelector, useAppDispatch} from 'src/hooks';
+import { useState } from 'react';
 import { FilmCard } from 'src/components';
-import { FilmInfo } from 'src/types/films';
 import {changeGenre} from 'src/store/reducer';
 import { Genres, GenreType } from 'src/types/genre';
 
-type Props = {
-  films: FilmInfo[];
-};
+const FILM_COUNT_PER_STEP = 8;
 
-const CatalogList = ({films}: Props): JSX.Element => {
+const CatalogList = (): JSX.Element => {
   const state = useAppSelector((_) => _);
   const dispatch = useAppDispatch();
+  let initialCountOfFilms = 8;
+
+  const [button, setButton] = useState(false);
+  const countOfFilms = button ? state.filmList.length : FILM_COUNT_PER_STEP;
+
+  const handleShowMoreButtonClick = () => {
+    const restFilmsCount = Math.min(state.filmList.length, initialCountOfFilms + FILM_COUNT_PER_STEP);
+    const films = state.filmList.slice(initialCountOfFilms, restFilmsCount);
+
+    initialCountOfFilms = restFilmsCount;
+
+    if (initialCountOfFilms >= films.length) {
+      setButton(true);
+    }
+  };
 
   return (
     <>
@@ -30,7 +43,7 @@ const CatalogList = ({films}: Props): JSX.Element => {
       <div className="catalog__films-list">
 
         {
-          state.filmList.map((film) => (
+          state.filmList.slice(0, countOfFilms).map((film) => (
             <FilmCard key={film.id} filmInfo={film} />
           ))
         }
@@ -38,7 +51,8 @@ const CatalogList = ({films}: Props): JSX.Element => {
       </div>
 
       <div className="catalog__more">
-        <button className="catalog__button" type="button">Show more</button>
+        {state.filmList.length > FILM_COUNT_PER_STEP && !button
+          ? <button className="catalog__button" type="button" onClick={handleShowMoreButtonClick}>Show more</button> : ''}
       </div>
     </>
   );

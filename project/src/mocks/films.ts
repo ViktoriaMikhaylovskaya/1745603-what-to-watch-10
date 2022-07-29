@@ -1,7 +1,7 @@
 export const films = [{
   id: 0,
   title: 'Fantastic Beasts: The Crimes of Grindelwal',
-  genre: 'Drama',
+  genre: 'Dramas',
   release: '2010',
   src: 'img/shutter-island.jpg',
   rating: 9.0,
@@ -15,7 +15,7 @@ export const films = [{
 {
   id: 1,
   title: 'Bohemian Rhapsody',
-  genre: 'Drama',
+  genre: 'Dramas',
   release: '2014',
   src: 'img/macbeth.jpg',
   rating: 9.5,
@@ -29,7 +29,7 @@ export const films = [{
 {
   id: 2,
   title: 'Macbeth',
-  genre: 'Horror',
+  genre: 'Comedys',
   release: '2022',
   src: 'img/snatch.jpg',
   rating: 5.0,
@@ -43,7 +43,7 @@ export const films = [{
 {
   id: 3,
   title: 'Shutter Island',
-  genre: 'Drama',
+  genre: 'Documentary',
   release: '2014',
   src: 'img/macbeth.jpg',
   rating: 9.5,
@@ -71,7 +71,7 @@ export const films = [{
 {
   id: 5,
   title: 'What We Do in the Shadows',
-  genre: 'Drama',
+  genre: 'Dramas',
   release: '2014',
   src: 'img/macbeth.jpg',
   rating: 9.5,
@@ -85,7 +85,7 @@ export const films = [{
 {
   id: 6,
   title: 'We need to talk about Kevin',
-  genre: 'Horror',
+  genre: 'Romance',
   release: '2022',
   src: 'img/snatch.jpg',
   rating: 5.0,
@@ -99,7 +99,7 @@ export const films = [{
 {
   id: 7,
   title: 'Revenant',
-  genre: 'Drama',
+  genre: 'Dramas',
   release: '2014',
   src: 'img/macbeth.jpg',
   rating: 9.5,
@@ -127,7 +127,7 @@ export const films = [{
 {
   id: 9,
   title: 'Fantastic Beasts: The Crimes of Grindelwal',
-  genre: 'Drama',
+  genre: 'Romance',
   release: '2014',
   src: 'img/macbeth.jpg',
   rating: 9.5,

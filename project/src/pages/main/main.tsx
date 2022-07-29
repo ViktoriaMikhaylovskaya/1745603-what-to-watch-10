@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FilmCard, Logo, CatalogList, Footer } from 'src/components';
+import { Logo, CatalogList, Footer } from 'src/components';
 import {FilmInfo} from 'src/types/films';
 
 type Props = {
@@ -72,21 +72,8 @@ const Main = ({films}: Props): JSX.Element => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <CatalogList />
+          <CatalogList films={films}/>
 
-          <div className="catalog__films-list">
-
-            {
-              films.map((film) => (
-                <FilmCard key={film.id} filmInfo={film} />
-              ))
-            }
-
-          </div>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
         </section>
 
         <Footer />

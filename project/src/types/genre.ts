@@ -1,8 +1,5 @@
 export const genres = ['ALL_GENRES', 'COMEDIES', 'CRIME', 'DOCUMENTARY', 'DRAMAS', 'HORROR', 'FAMILY', 'ROMANCE', 'SCI_FI', 'THRILLERS'] as const;
 
-
-// export type GenreType = 'ALL_GENRES' | 'COMEDIES' | 'CRIME' | 'DOCUMENTARY' | 'DRAMAS' | 'HORROR' | 'FAMILY' | 'ROMANCE' | 'SCI_FI' | 'THRILLERS';
-
 export type GenreType = typeof genres[number];
 
 export class Genre {

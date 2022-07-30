@@ -20,14 +20,14 @@ const FilmNavigation = ({filmInfo}: Props): JSX.Element => {
         <ul className="film-nav__list">
           {Object.values(Tabs).map((key) => (
             <li key={key} className={`film-nav__item ${key === selectedTab ? 'film-nav__item--active' : ''}`}>
-              <a href="#" className="film-nav__link"
+              <button className="film-nav__link"
                 onClick={(evt) => {
                   evt.preventDefault();
                   setSelectedTab(key);
                 }}
               >
                 {key}
-              </a>
+              </button>
             </li>))}
         </ul>
       </nav>

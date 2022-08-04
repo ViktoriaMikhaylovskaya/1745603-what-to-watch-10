@@ -4,4 +4,6 @@ export { default as MyList } from './my-list/MyList';
 export { default as SignIn } from './sign-in/SignIn';
 export { default as Player } from './player/player';
 export { default as Review } from './review/review';
+export { default as LoadingScreen } from './loading-screen/LoadingScreen';
+
 

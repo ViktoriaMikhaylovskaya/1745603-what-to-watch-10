@@ -6,22 +6,22 @@ type Props= {
 };
 
 const Overview = ({filmInfo}: Props): JSX.Element => {
-  const {rating, ratingCount, text, director, actors} = filmInfo;
+  const {rating, scoresCount, description, director, starring} = filmInfo;
   return (
     <Fragment>
       <div className="film-rating">
         <div className="film-rating__score">{rating}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">Very good</span>
-          <span className="film-rating__count">{ratingCount} ratings</span>
+          <span className="film-rating__count">{scoresCount} ratings</span>
         </p>
       </div>
 
       <div className="film-card__text">
-        {text}
+        {description}
         <p className="film-card__director"><strong>Director: {director}</strong></p>
 
-        <p className="film-card__starring"><strong>Starring: {actors} and other</strong></p>
+        <p className="film-card__starring"><strong>Starring: {starring} and other</strong></p>
       </div>
     </Fragment>
   );

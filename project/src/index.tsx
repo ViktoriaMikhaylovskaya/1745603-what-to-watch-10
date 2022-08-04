@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { App } from 'src/components';
-import { films } from 'src/mocks/films';
+import { App,ErrorMessage } from 'src/components';
 import { store } from './store';
+import {fetchFilmAction, checkAuthAction, fetchPromoFilmAction} from './store/api-actions';
+
+store.dispatch(fetchPromoFilmAction());
+store.dispatch(fetchFilmAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -12,9 +16,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        films={films}
-      />
+      <ErrorMessage />
+      <App />
     </Provider>
   </React.StrictMode>,
 );

@@ -18,7 +18,7 @@ const Review = ({filmInfo}: Props): JSX.Element => {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={filmInfo.src} alt="The Grand Budapest Hotel" />
+          <img src={filmInfo.backgroundImage} alt={filmInfo.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -29,7 +29,7 @@ const Review = ({filmInfo}: Props): JSX.Element => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to="/films/:id" className="breadcrumbs__link">The Grand Budapest Hotel</Link>
+                <Link to="/films/:id" className="breadcrumbs__link">{filmInfo.name}l</Link>
               </li>
               <li className="breadcrumbs__item">
                 <Link className="breadcrumbs__link" to="/">Add review</Link>
@@ -50,7 +50,7 @@ const Review = ({filmInfo}: Props): JSX.Element => {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={filmInfo.src} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={filmInfo.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
         </div>
       </div>
 

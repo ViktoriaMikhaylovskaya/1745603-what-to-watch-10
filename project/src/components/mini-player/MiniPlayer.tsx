@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 
 type Props = {
-  src: string;
+  videoLink: string;
 }
 
-const MiniPlayer = ({src}: Props): JSX.Element => {
+const MiniPlayer = ({videoLink}: Props): JSX.Element => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const MiniPlayer = ({src}: Props): JSX.Element => {
   }, []);
 
   return (
-    <video src={src} className="player__video" ref={videoRef} />
+    <video src={videoLink} className="player__video" ref={videoRef} />
   );
 };
 

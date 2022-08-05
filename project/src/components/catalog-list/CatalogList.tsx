@@ -1,12 +1,16 @@
 import {useAppSelector, useAppDispatch} from 'src/hooks';
 import { FilmCard } from 'src/components';
-import {changeGenre, showMore} from 'src/store/reducer';
+import {actions} from 'src/store/reducer';
 import { Genre, genres } from 'src/types/genre';
 
 
 const CatalogList = (): JSX.Element => {
   const state = useAppSelector((_) => _);
   const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(actions.showMore());
+  };
 
   return (
     <>
@@ -15,7 +19,7 @@ const CatalogList = (): JSX.Element => {
           <li key={key} className={`catalog__genres-item ${key === state.genre ? 'catalog__genres-item--active' : ''}`}>
             <button className="catalog__genres-link"
               onClick={() => {
-                dispatch(changeGenre(key));
+                dispatch(actions.changeGenre(key));
               }}
             >
               {Genre.toString(key)}
@@ -25,17 +29,15 @@ const CatalogList = (): JSX.Element => {
 
       <div className="catalog__films-list">
         {
-          state.originalFilmList.map((film) => (
-            <FilmCard key={film.id} filmInfo={film} />
-          ))
+          state.originalFilmList.map((film) => (<FilmCard key={film.id} filmInfo={film} />))
         }
       </div>
 
 
-      {!state.isEndOfTheList
+      {!state.isEndOfTheList && state.originalFilmList.length !== 0
         ? (
           <div className="catalog__more">
-            <button className="catalog__button" type="button" onClick={() => {dispatch(showMore());}}>Show more</button>
+            <button className="catalog__button" type="button" onClick={handleClick}>Show more</button>
           </div>
         )
         : null}

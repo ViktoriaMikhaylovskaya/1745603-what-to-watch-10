@@ -1,4 +1,4 @@
-export const genres = ['ALL_GENRES', 'COMEDIES', 'CRIME', 'DOCUMENTARY', 'DRAMAS', 'HORROR', 'FAMILY', 'ROMANCE', 'SCI_FI', 'THRILLERS'] as const;
+export const genres = ['ALL_GENRES', 'COMEDIES', 'CRIME', 'DOCUMENTARY', 'DRAMAS', 'HORROR', 'FAMILY', 'ROMANCE', 'SCI_FI', 'THRILLERS', 'ADVENTURE', 'FANTASY'] as const;
 
 export type GenreType = typeof genres[number];
 
@@ -31,6 +31,12 @@ export class Genre {
       }
       case 'Thrillers': {
         return 'THRILLERS';
+      }
+      case 'Adventure': {
+        return 'ADVENTURE';
+      }
+      case 'Fantasy': {
+        return 'FANTASY';
       }
       default: {
         return 'ALL_GENRES';
@@ -67,6 +73,12 @@ export class Genre {
       case 'THRILLERS': {
         return 'Thrillers';
       }
+      case 'ADVENTURE': {
+        return 'Adventure';
+      }
+      case 'FANTASY': {
+        return 'Fantasy';
+      }
       default: {
         return 'All genres';
       }
@@ -84,7 +96,9 @@ export const Genres: Record<GenreType, string> = {
   FAMILY: 'Kids & Family',
   ROMANCE: 'Romance',
   SCI_FI: 'Sci-Fi',
-  THRILLERS: 'Thrillers',
+  THRILLERS: 'Thriller',
+  ADVENTURE: 'Adventure',
+  FANTASY: 'Fantasy',
 };
 
 export default Genres;

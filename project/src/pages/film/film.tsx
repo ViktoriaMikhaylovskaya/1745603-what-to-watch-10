@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom';
-import { FilmCard, Logo, Footer, FilmNavigation } from 'src/components';
-import { FilmInfo } from 'src/types/films';
-import { films } from 'src/mocks/films';
+import { FilmCard, Logo, Footer, FilmNavigation, UserBlock } from 'src/components';
+import { useAppSelector } from 'src/hooks';
 
-type Props= {
-  filmInfo: FilmInfo;
-};
-
-const Film = ({filmInfo}: Props): JSX.Element => {
-  const {genre, title, src, release} = filmInfo;
+const Film = (): JSX.Element => {
+  const state = useAppSelector((_) => _);
+  const {genre, name, posterImage, released} = state.promoFilm;
 
   return (
     <section>
@@ -22,27 +18,17 @@ const Film = ({filmInfo}: Props): JSX.Element => {
 
           <header className="page-header film-card__head">
             <Logo />
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link" href="/">Sign out</a>
-              </li>
-            </ul>
+            <UserBlock />
           </header>
 
           {
-            filmInfo ?
+            state.promoFilm ?
               <div className="film-card__wrap">
                 <div className="film-card__desc">
-                  <h2 className="film-card__title">{title}</h2>
+                  <h2 className="film-card__title">{name}</h2>
                   <p className="film-card__meta">
                     <span className="film-card__genre">{genre}</span>
-                    <span className="film-card__year">{release}</span>
+                    <span className="film-card__year">{released}</span>
                   </p>
 
                   <div className="film-card__buttons">
@@ -67,14 +53,14 @@ const Film = ({filmInfo}: Props): JSX.Element => {
         </div>
 
         {
-          filmInfo ?
+          state.promoFilm ?
             <div className="film-card__wrap film-card__translate-top">
               <div className="film-card__info">
                 <div className="film-card__poster film-card__poster--big">
-                  <img src={src} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+                  <img src={posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
                 </div>
 
-                <FilmNavigation filmInfo={filmInfo}/>
+                <FilmNavigation />
               </div>
             </div> : null
         }
@@ -86,7 +72,7 @@ const Film = ({filmInfo}: Props): JSX.Element => {
 
           <div className="catalog__films-list">
             {
-              films.slice(0, 4).map((film) => (
+              state.originalFilmList.slice(0, 4).map((film) => (
                 <FilmCard key={film.id} filmInfo={film} />
               ))
             }

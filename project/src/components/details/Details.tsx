@@ -1,11 +1,8 @@
-import { FilmInfo } from 'src/types/films';
+import { useAppSelector } from 'src/hooks';
 
-type Props= {
-  filmInfo: FilmInfo;
-};
-
-const Details = ({filmInfo}: Props): JSX.Element => {
-  const {director, starring, genre, released, runTime} = filmInfo;
+const Details = (): JSX.Element => {
+  const {promoFilm} = useAppSelector((_) => _);
+  const {director, starring, genre, released, runTime} = promoFilm;
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">

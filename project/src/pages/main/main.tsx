@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
 import { useAppSelector } from 'src/hooks';
-import { Logo, CatalogList, Footer } from 'src/components';
+import { Logo, CatalogList, Footer, UserBlock } from 'src/components';
 
 const Main = (): JSX.Element => {
   const {promoFilm, originalFilmList} = useAppSelector((_) => _);
@@ -16,17 +15,7 @@ const Main = (): JSX.Element => {
 
         <header className="page-header film-card__head">
           <Logo />
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <Link className="user-block__link" to='/login'>Sign out</Link>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         {

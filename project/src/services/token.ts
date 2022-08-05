@@ -1,4 +1,8 @@
-import {KeyType} from 'src/types/token';
+export const AUTH_TOKEN_KEY_NAME = 'what-to-watch-token';
+export type Tokensave = string;
+
+export const keys = ['what-to-watch-token'] as const;
+export type KeyType = typeof keys[number];
 
 class Token {
   static get(key: KeyType) {

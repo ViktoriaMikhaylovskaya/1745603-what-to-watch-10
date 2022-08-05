@@ -1,7 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import Token from './token';
 import {processErrorHandle} from './process-error-handle';
-import {AUTH_TOKEN_KEY_NAME} from 'src/types/token';
+import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
 
 class StatusCode {
   static BAD_REQUEST = 400;

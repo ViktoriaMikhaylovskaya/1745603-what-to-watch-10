@@ -1,7 +1,7 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
 import { Genres, Genre, GenreType } from 'src/types/genre';
 import { FilmInfo } from 'src/types/films';
-import { AuthorizationStatus} from '../const';
+import { AuthorizationStatus, AppRoute} from '../const';
 
 const FILM_COUNT_PER_STEP = 8;
 
@@ -13,6 +13,7 @@ export const actions = {
   setError: createAction<string | null>('film/setError'),
   setDataLoadedStatus: createAction<boolean>('data/setDataLoadedStatus'),
   loadPromoFilm: createAction<FilmInfo>('data/loadPromoFilm'),
+  redirectToRoute: createAction<AppRoute>('film/redirectToRoute'),
 };
 
 type InitalState = {

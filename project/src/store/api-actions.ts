@@ -4,8 +4,8 @@ import {AppDispatch, State} from 'src/types/state';
 import {AuthData, UserData} from 'src/types/user-data';
 import {actions} from './reducer';
 import {FilmInfo} from 'src/types/films';
-import {AUTH_TOKEN_KEY_NAME} from 'src/types/token';
-import {APIRoute, AuthorizationStatus} from 'src/const';
+import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
+import {APIRoute, AuthorizationStatus, AppRoute} from 'src/const';
 import Token from 'src/services/token';
 import {store} from './';
 
@@ -75,6 +75,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
     Token.save(AUTH_TOKEN_KEY_NAME, token);
     dispatch(actions.requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(actions.redirectToRoute(AppRoute.MyList));
   },
 );
 

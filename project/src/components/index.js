@@ -12,3 +12,4 @@ export { default as Reviews } from './reviews/Reviews';
 export { default as Details } from './details/Details';
 export { default as FilmNavigation } from './film-nav/FilmNavigation';
 export {default as ErrorMessage } from './error-message/ErrorMessage';
+export { default as UserBlock } from './user-block/UserBlock';

@@ -1,15 +1,22 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-import {StatusCodes} from 'http-status-codes';
-import {getToken} from './token';
+import Token from './token';
 import {processErrorHandle} from './process-error-handle';
+import {AUTH_TOKEN_KEY_NAME} from 'src/types/token';
 
-const StatusCodeMapping: Record<number, boolean> = {
-  [StatusCodes.BAD_REQUEST]: true,
-  [StatusCodes.UNAUTHORIZED]: true,
-  [StatusCodes.NOT_FOUND]: true
-};
+class StatusCode {
+  static BAD_REQUEST = 400;
+  static UNAUTHORIZED = 401;
+  static NOT_FOUND = 404;
+  static ALL_GOOD = 200;
 
-const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
+  static ALLOWED_STATUSED = [StatusCode.ALL_GOOD];
+
+  static isError(statisCode: number) {
+    return !StatusCode.ALLOWED_STATUSED.includes(statisCode);
+  }
+}
+
+const shouldDisplayError = (response: AxiosResponse) => StatusCode.isError(response.status);
 
 const BACKEND_URL = 'https://10.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
@@ -22,7 +29,7 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-      const token = getToken();
+      const token = Token.get(AUTH_TOKEN_KEY_NAME);
 
       if (token) {
         config.headers['x-token'] = token;

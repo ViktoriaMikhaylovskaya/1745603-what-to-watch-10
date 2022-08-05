@@ -4,8 +4,9 @@ import {AppDispatch, State} from 'src/types/state';
 import {AuthData, UserData} from 'src/types/user-data';
 import {actions} from './reducer';
 import {FilmInfo} from 'src/types/films';
+import {AUTH_TOKEN_KEY_NAME} from 'src/types/token';
 import {APIRoute, AuthorizationStatus} from 'src/const';
-import {saveToken, dropToken} from 'src/services/token';
+import Token from 'src/services/token';
 import {store} from './';
 
 export const TIMEOUT_SHOW_ERROR = 5000;
@@ -28,8 +29,8 @@ export const fetchFilmAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<FilmInfo[]>(APIRoute.Films);
     dispatch(actions.setDataLoadedStatus(true));
+    const {data} = await api.get<FilmInfo[]>(APIRoute.Films);
     dispatch(actions.loadFilms(data));
     dispatch(actions.setDataLoadedStatus(false));
   },
@@ -72,7 +73,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    Token.save(AUTH_TOKEN_KEY_NAME, token);
     dispatch(actions.requireAuthorization(AuthorizationStatus.Auth));
   },
 );
@@ -85,7 +86,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   'user/logout',
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
-    dropToken();
+    Token.remove(AUTH_TOKEN_KEY_NAME);
     dispatch(actions.requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );

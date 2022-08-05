@@ -26,7 +26,7 @@ const FilmCard = ({filmInfo}: Props): JSX.Element => {
     <article className="small-film-card catalog__films-card" onMouseEnter={onArticleHover} onMouseLeave={onArticleLeave} >
       <div className="small-film-card__image">
         {isCardHover ? <MiniPlayer videoLink={filmInfo.previewVideoLink}/>
-          : <img src={filmInfo.posterImage} alt={filmInfo.name} width="280" height="175" />}
+          : <img src={filmInfo.previewImage} alt={filmInfo.name} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to="/films/:id">{filmInfo.name}</Link>

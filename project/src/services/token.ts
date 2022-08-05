@@ -1,16 +1,18 @@
-const AUTH_TOKEN_KEY_NAME = 'what-to-watch-token';
+import {KeyType} from 'src/types/token';
 
-export type Token = string;
+class Token {
+  static get(key: KeyType) {
+    const token = localStorage.getItem(key);
+    return token ?? '';
+  }
 
-export const getToken = (): Token => {
-  const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
-  return token ?? '';
-};
+  static save(key: KeyType, value: string) {
+    return localStorage.setItem(key, value );
+  }
 
-export const saveToken = (token: Token): void => {
-  localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
-};
+  static remove(key: KeyType) {
+    return localStorage.removeItem(key);
+  }
+}
 
-export const dropToken = (): void => {
-  localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
-};
+export default Token;

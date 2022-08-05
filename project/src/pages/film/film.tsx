@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { FilmCard, Logo, Footer, FilmNavigation } from 'src/components';
 import { FilmInfo } from 'src/types/films';
 import { useAppSelector } from 'src/hooks';
+import { APIRoute } from 'src/const';
 
 type Props= {
   filmInfo: FilmInfo;
@@ -31,7 +32,7 @@ const Film = ({filmInfo}: Props): JSX.Element => {
                 </div>
               </li>
               <li className="user-block__item">
-                <a className="user-block__link" href="/login">Sign out</a>
+                <a className="user-block__link" href={APIRoute.Login}>Sign out</a>
               </li>
             </ul>
           </header>

@@ -1,7 +1,5 @@
-function LoadingScreen(): JSX.Element {
-  return (
-    <h1>Loading ...</h1>
-  );
-}
+const LoadingScreen = (): JSX.Element => (
+  <div>Loading ...</div>
+);
 
 export default LoadingScreen;

@@ -54,30 +54,30 @@ const reducer = createReducer(startState, (builder) => {
       state.isEndOfTheList = state.currentStep === state.amountOfSteps;
       state.originalFilmList = state.filmList.slice(0, FILM_COUNT_PER_STEP);
     })
-    .addCase(actions.showMore, (state, ) => {
+    .addCase(actions.showMore, (state) => {
       if(state.currentStep + 1 <= state.amountOfSteps ) {
         state.currentStep += 1;
         state.originalFilmList = state.filmList.slice(0, state.currentStep * FILM_COUNT_PER_STEP);
         state.isEndOfTheList = state.currentStep === state.amountOfSteps;
       }
     })
-    .addCase(actions.loadFilms, (state, action) => {
-      state.originalFilmList = action.payload;
-      state.filmList = action.payload;
+    .addCase(actions.loadFilms, (state, {payload}) => {
+      state.originalFilmList = payload;
+      state.filmList = payload;
       state.originalFilmList = state.filmList.slice(0, FILM_COUNT_PER_STEP);
       state.amountOfSteps = Math.ceil(state.filmList.length / FILM_COUNT_PER_STEP);
     })
-    .addCase(actions.requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
+    .addCase(actions.requireAuthorization, (state, {payload}) => {
+      state.authorizationStatus = payload;
     })
-    .addCase(actions.setError, (state, action) => {
-      state.error = action.payload;
+    .addCase(actions.setError, (state, {payload}) => {
+      state.error = payload;
     })
-    .addCase(actions.setDataLoadedStatus, (state, action) => {
-      state.isDataLoaded = action.payload;
+    .addCase(actions.setDataLoadedStatus, (state, {payload}) => {
+      state.isDataLoaded = payload;
     })
-    .addCase(actions.loadPromoFilm, (state, action) => {
-      state.promoFilm = action.payload;
+    .addCase(actions.loadPromoFilm, (state, {payload}) => {
+      state.promoFilm = payload;
     });
 });
 

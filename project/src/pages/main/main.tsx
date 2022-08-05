@@ -1,19 +1,15 @@
 import { Link } from 'react-router-dom';
+import { useAppSelector } from 'src/hooks';
 import { Logo, CatalogList, Footer } from 'src/components';
-import {FilmInfo} from 'src/types/films';
 
-type Props = {
-  films: FilmInfo[];
-  promoFilm: FilmInfo;
-};
-
-const Main = ({films, promoFilm}: Props): JSX.Element => {
-  const {posterImage, name, genre, released} = promoFilm;
+const Main = (): JSX.Element => {
+  const {promoFilm, originalFilmList} = useAppSelector((_) => _);
+  const {backgroundImage, posterImage, name, genre, released} = promoFilm;
   return (
     <section>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -34,7 +30,7 @@ const Main = ({films, promoFilm}: Props): JSX.Element => {
         </header>
 
         {
-          films ?
+          originalFilmList ?
             <div className="film-card__wrap">
               <div className="film-card__info">
                 <div className="film-card__poster">

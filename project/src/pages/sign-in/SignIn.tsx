@@ -28,6 +28,8 @@ const SignIn = (): JSX.Element => {
     }
   };
 
+  const navigateLink = () => navigate(AppRoute.Main);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -63,7 +65,7 @@ const SignIn = (): JSX.Element => {
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" onClick={() => navigate(AppRoute.Main)} type="submit">Sign in</button>
+            <button className="sign-in__btn" onClick={navigateLink} type="submit">Sign in</button>
           </div>
         </form>
       </div>

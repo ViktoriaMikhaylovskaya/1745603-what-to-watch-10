@@ -7,7 +7,7 @@ const UserBlock = (): JSX.Element => {
   const {authorizationStatus} = useAppSelector((_) => _);
   const dispatch = useAppDispatch();
 
-  const onSubmit = () => {
+  const handleSubmit = () => {
     if(authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(logoutAction());
     }
@@ -21,7 +21,7 @@ const UserBlock = (): JSX.Element => {
         </div>
       </li>
       <li className="user-block__item">
-        <Link className="user-block__link" to={AppRoute.SignIn} onClick={onSubmit}>
+        <Link className="user-block__link" to={AppRoute.SignIn} onClick={handleSubmit}>
           {authorizationStatus === AuthorizationStatus.Auth ? 'Sign out' : 'Sign in'}
         </Link>
       </li>

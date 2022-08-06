@@ -5,6 +5,7 @@ import {useAppDispatch} from 'src/hooks';
 import {loginAction} from 'src/store/api-actions';
 import {AppRoute} from 'src/const';
 import {AuthData} from 'src/types/user-data';
+import {processErrorHandle} from 'src/services/process-error-handle';
 
 const SignIn = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -17,8 +18,13 @@ const SignIn = (): JSX.Element => {
     const formData = new FormData(target);
     const data = Object.fromEntries(formData) as AuthData;
 
-    dispatch(loginAction(data));
-    navigate(AppRoute.Main);
+    if (data.login !== '' && data.password !== '') {
+      dispatch(loginAction(data));
+      navigate(AppRoute.Main);
+    } else {
+      processErrorHandle('Неверный логин или пароль, попробуйте заново.');
+    }
+
   };
 
   return (

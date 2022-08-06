@@ -1,9 +1,17 @@
-import { AppRoute } from 'src/const';
+import { AppRoute, AuthorizationStatus } from 'src/const';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from 'src/hooks';
+import { useAppSelector, useAppDispatch } from 'src/hooks';
+import { logoutAction} from 'src/store/api-actions';
 
 const UserBlock = (): JSX.Element => {
   const {authorizationStatus} = useAppSelector((_) => _);
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = () => {
+    if(authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(logoutAction());
+    }
+  };
 
   return (
     <ul className="user-block">
@@ -13,8 +21,8 @@ const UserBlock = (): JSX.Element => {
         </div>
       </li>
       <li className="user-block__item">
-        <Link className="user-block__link" to={authorizationStatus ? AppRoute.SignIn : AppRoute.Main}>
-          {authorizationStatus ? 'Sign in' : 'Sign out'}
+        <Link className="user-block__link" to={AppRoute.SignIn} onClick={handleSubmit}>
+          {authorizationStatus === AuthorizationStatus.Auth ? 'Sign out' : 'Sign in'}
         </Link>
       </li>
     </ul>

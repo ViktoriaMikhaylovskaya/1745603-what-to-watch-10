@@ -1,7 +1,7 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
 import { Genres, Genre, GenreType } from 'src/types/genre';
 import { FilmInfo } from 'src/types/films';
-import { AuthorizationStatus, AppRoute} from '../const';
+import { AuthorizationStatus, AppRoute} from 'src/const';
 
 const FILM_COUNT_PER_STEP = 8;
 

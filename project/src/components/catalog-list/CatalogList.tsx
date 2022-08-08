@@ -5,7 +5,7 @@ import { Genre, genres } from 'src/types/genre';
 
 
 const CatalogList = (): JSX.Element => {
-  const state = useAppSelector((_) => _);
+  const state = useAppSelector((_) => _.all);
   const dispatch = useAppDispatch();
 
   const handleClick = () => {

@@ -8,7 +8,7 @@ import { AppRoute } from 'src/const';
 const STARS = [1,2,3,4,5,6,7,8,9,10];
 
 const Review = (): JSX.Element => {
-  const {promoFilm} = useAppSelector((_) => _);
+  const {promoFilm} = useAppSelector((_) => _.all);
   const {backgroundImage, name, posterImage} = promoFilm;
 
   const [filmRating, setFilmRating] = useState(0);

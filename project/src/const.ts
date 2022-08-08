@@ -17,7 +17,7 @@ export enum APIRoute {
   Films = '/films',
   PromoFilm = '/promo',
 
-  Film = '/films/{filmId}',
+  SelectedFilm = '/films/2',
   SimilarFilms = '/films/{filmId}/similar',
   FavoriteFilms = '/favorite',
   StatusFaviriteFilm = '/favorite/{filmId}/{status}',

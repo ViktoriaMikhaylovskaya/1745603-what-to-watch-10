@@ -5,7 +5,7 @@ import {Film, Main, MyList, SignIn, Player, Review, LoadingScreen} from 'src/pag
 import {NotFoundPage, PrivateRoute} from 'src/components';
 
 const App = (): JSX.Element => {
-  const {authorizationStatus, isDataLoaded} = useAppSelector((_) => _);
+  const {authorizationStatus, isDataLoaded} = useAppSelector((_) => _.all);
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (

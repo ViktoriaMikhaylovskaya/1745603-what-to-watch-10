@@ -8,6 +8,7 @@ import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from 'src/const';
 import Token from 'src/services/token';
 import {store} from './';
+import {actions as filmActions} from 'src/store/film/reducer';
 
 export const TIMEOUT_SHOW_ERROR = 5000;
 
@@ -45,6 +46,28 @@ export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<FilmInfo>(APIRoute.PromoFilm);
     dispatch(actions.loadPromoFilm(data));
+  },
+);
+
+type SelectedFilm = {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}
+
+export const fetchSelectedFilmAction = createAsyncThunk<void, FilmInfo['id'], SelectedFilm>(
+  'data/fetchSelectedFilm',
+  async (filmId, {dispatch, extra: api, getState}) => {
+    const state = getState();
+    if (!state.film.isLoading) {
+      dispatch(filmActions.fetch(filmId));
+      const {data} = await api.get<FilmInfo>(`${APIRoute.Films}/${filmId}`);
+      if(data) {
+        dispatch(filmActions.success(data));
+      } else {
+        dispatch(filmActions.fail('Error!'));
+      }
+    }
   },
 );
 

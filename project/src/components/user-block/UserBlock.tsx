@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from 'src/hooks';
 import { logoutAction} from 'src/store/api-actions';
 
 const UserBlock = (): JSX.Element => {
-  const {authorizationStatus} = useAppSelector((_) => _);
+  const {authorizationStatus} = useAppSelector((_) => _.all);
   const dispatch = useAppDispatch();
 
   const handleSubmit = () => {

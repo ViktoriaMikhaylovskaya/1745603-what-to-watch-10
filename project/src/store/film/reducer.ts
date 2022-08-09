@@ -1,4 +1,5 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
+import { Comment } from 'src/types/comment';
 import { FilmInfo } from 'src/types/films';
 // import { AuthorizationStatus, AppRoute} from 'src/const';
 
@@ -8,6 +9,7 @@ export const actions = {
   fail: createAction<string>('film/fail'),
   success: createAction<FilmInfo>('film/success'),
   similarFilms: createAction<FilmInfo[]>('film/similarFilms'),
+  comments: createAction<Comment[]>('film/comment'),
 };
 
 type InitalState = {
@@ -15,6 +17,7 @@ type InitalState = {
   isLoading: boolean,
   error: string | null,
   similarFilms: FilmInfo[],
+  comments: Comment[],
 };
 
 const initalState: InitalState = {
@@ -22,6 +25,7 @@ const initalState: InitalState = {
   isLoading: false,
   error: null,
   similarFilms: [],
+  comments: [],
 };
 
 const reducer = createReducer(initalState, (builder) => {
@@ -41,6 +45,10 @@ const reducer = createReducer(initalState, (builder) => {
     .addCase(actions.similarFilms, (state, {payload}) => {
       state.isLoading = false;
       state.similarFilms = payload;
+    })
+    .addCase(actions.comments, (state, {payload}) => {
+      state.isLoading = false;
+      state.comments = payload;
     });
 });
 

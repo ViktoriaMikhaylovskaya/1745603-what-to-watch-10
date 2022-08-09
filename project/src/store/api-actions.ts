@@ -4,6 +4,7 @@ import {AppDispatch, State} from 'src/types/state';
 import {AuthData, UserData} from 'src/types/user-data';
 import {actions} from './reducer';
 import {FilmInfo} from 'src/types/films';
+import {Comment} from 'src/types/comment';
 import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from 'src/const';
 import Token from 'src/services/token';
@@ -80,6 +81,18 @@ export const fetchSimilarFilmAction = createAsyncThunk<void, FilmInfo['id'], {
   async (filmId, {dispatch, extra: api}) => {
     const {data} = await api.get<FilmInfo[]>(`${APIRoute.Films}/${filmId}/similar`);
     dispatch(filmActions.similarFilms(data));
+  }
+);
+
+export const fetchCommentction = createAsyncThunk<void, FilmInfo['id'], {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchCommentction',
+  async (filmId, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${filmId}`);
+    dispatch(filmActions.comments(data));
   }
 );
 

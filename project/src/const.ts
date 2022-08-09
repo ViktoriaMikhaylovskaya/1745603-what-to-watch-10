@@ -16,16 +16,16 @@ export enum AuthorizationStatus {
 export enum APIRoute {
   Films = '/films',
   PromoFilm = '/promo',
-
   SimilarFilms = '/similar',
+
   FavoriteFilms = '/favorite',
   StatusFaviriteFilm = '/favorite/{filmId}/{status}',
 
   Login = '/login',
   Logout = '/logout',
 
-  Comments = '/comments/{filmId}',
-  AddComment = '/comments/{filmId}',
+  Comments = '/comments',
+  AddComment = '/comments',
 }
 
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>

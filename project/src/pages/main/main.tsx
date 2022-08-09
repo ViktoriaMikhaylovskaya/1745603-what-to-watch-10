@@ -2,7 +2,7 @@ import { useAppSelector } from 'src/hooks';
 import { Logo, CatalogList, Footer, UserBlock } from 'src/components';
 
 const Main = (): JSX.Element => {
-  const {promoFilm, originalFilmList} = useAppSelector((_) => _.all);
+  const {promoFilm} = useAppSelector((_) => _.all);
   const {backgroundImage, posterImage, name, genre, released} = promoFilm;
 
   return (
@@ -20,7 +20,7 @@ const Main = (): JSX.Element => {
         </header>
 
         {
-          originalFilmList ?
+          promoFilm ?
             <div className="film-card__wrap">
               <div className="film-card__info">
                 <div className="film-card__poster">

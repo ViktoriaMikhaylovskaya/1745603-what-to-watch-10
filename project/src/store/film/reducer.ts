@@ -7,18 +7,21 @@ export const actions = {
   fetch: createAction<FilmInfo['id']>('film/fetch'),
   fail: createAction<string>('film/fail'),
   success: createAction<FilmInfo>('film/success'),
+  similarFilms: createAction<FilmInfo[]>('film/similarFilms'),
 };
 
 type InitalState = {
   data: FilmInfo | null,
   isLoading: boolean,
   error: string | null,
+  similarFilms: FilmInfo[],
 };
 
 const initalState: InitalState = {
   data: null,
   isLoading: false,
   error: null,
+  similarFilms: [],
 };
 
 const reducer = createReducer(initalState, (builder) => {
@@ -34,6 +37,10 @@ const reducer = createReducer(initalState, (builder) => {
     .addCase(actions.success, (state, {payload}) => {
       state.isLoading = false;
       state.data = payload;
+    })
+    .addCase(actions.similarFilms, (state, {payload}) => {
+      state.isLoading = false;
+      state.similarFilms = payload;
     });
 });
 

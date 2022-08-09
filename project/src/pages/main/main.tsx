@@ -4,6 +4,7 @@ import { Logo, CatalogList, Footer, UserBlock } from 'src/components';
 const Main = (): JSX.Element => {
   const {promoFilm, originalFilmList} = useAppSelector((_) => _.all);
   const {backgroundImage, posterImage, name, genre, released} = promoFilm;
+
   return (
     <section>
       <section className="film-card">

@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom';
 import { FilmCard, Logo, Footer, UserBlock } from 'src/components';
 import {FilmNavigation} from './film-nav';
 import { FilmInfo } from 'src/types/films';
+import { useAppSelector } from 'src/hooks';
 
 
 const Film = ({data}: {data: FilmInfo}): JSX.Element => {
   const {genre, name, posterImage, released, backgroundImage} = data;
+  const {similarFilms} = useAppSelector((_) => _.film);
 
   return (
     <section>
@@ -62,17 +64,18 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-
-          {/* <div className="catalog__films-list">
-            {
-              state.originalFilmList.slice(0, 4).map((film) => (
-                <FilmCard key={film.id} filmInfo={film} />
-              ))
-            }
-          </div> */}
-        </section>
+        {similarFilms.length >= 1
+          ? <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
+            <div className="catalog__films-list">
+              {
+                similarFilms.slice(0, 4).map((film) => (
+                  <FilmCard key={film.id} filmInfo={film} />
+                ))
+              }
+            </div>
+          </section>
+          : ''}
 
         <Footer />
       </div>

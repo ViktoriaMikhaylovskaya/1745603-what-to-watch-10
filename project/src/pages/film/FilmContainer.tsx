@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
-import { fetchSelectedFilmAction } from 'src/store/api-actions';
+import { fetchSelectedFilmAction, fetchSimilarFilmAction } from 'src/store/api-actions';
 import { FilmInfo } from 'src/types/films';
 import Film from './film';
 
@@ -15,6 +15,7 @@ const FilmContainer = (): JSX.Element => {
   useEffect(() => {
     if (typeof id === 'string') {
       dispatch(fetchSelectedFilmAction(Number(id)));
+      dispatch(fetchSimilarFilmAction(Number(id)));
     }
   }, [id, dispatch]);
 

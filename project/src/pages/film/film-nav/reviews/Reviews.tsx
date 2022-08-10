@@ -1,7 +1,10 @@
 import { useAppSelector } from 'src/hooks';
+import dayjs from 'dayjs';
 
 const Reviews = (): JSX.Element => {
   const {comments} = useAppSelector((_) => _.film);
+
+  const humanizeFilmDueDate = (date: string) => dayjs(date).format('MMMM D, YYYY');
 
   return (
     <div className="film-card__reviews film-card__row">
@@ -17,7 +20,7 @@ const Reviews = (): JSX.Element => {
 
                   <footer className="review__details">
                     <cite className="review__author">{user.name}</cite>
-                    <time className="review__date" dateTime="2016-12-24">{date}</time>
+                    <time className="review__date" dateTime="2016-12-24">{humanizeFilmDueDate(date)}</time>
                   </footer>
                 </blockquote>
 

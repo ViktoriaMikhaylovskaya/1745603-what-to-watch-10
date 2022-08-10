@@ -7,3 +7,9 @@ export type Comment= {
   id: number,
   name: string,
 }};
+
+export type AddComment = {
+  comment: string,
+  rating: number,
+  filmId: number | undefined,
+};

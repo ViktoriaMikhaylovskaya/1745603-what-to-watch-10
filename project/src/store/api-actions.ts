@@ -4,7 +4,7 @@ import {AppDispatch, State} from 'src/types/state';
 import {AuthData, UserData} from 'src/types/user-data';
 import {actions} from './reducer';
 import {FilmInfo} from 'src/types/films';
-import {Comment} from 'src/types/comment';
+import {Comment, AddComment} from 'src/types/comment';
 import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from 'src/const';
 import Token from 'src/services/token';
@@ -96,6 +96,20 @@ export const fetchCommentction = createAsyncThunk<void, FilmInfo['id'], {
   }
 );
 
+export const addCommentction = createAsyncThunk<void, AddComment, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/addCommentction',
+  async ({comment, rating, filmId}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Comment[]>(`${APIRoute.AddComment}/${filmId}`, {comment, rating});
+    if(AuthorizationStatus.Auth) {
+      dispatch(actions.redirectToRoute(AppRoute.Film));
+      dispatch(filmActions.comments(data));
+    }
+  },
+);
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,

@@ -3,12 +3,13 @@ import {FilmCard, Logo, Footer, UserBlock} from 'src/components';
 import {FilmNavigation} from './film-nav';
 import {FilmInfo} from 'src/types/films';
 import {useAppSelector} from 'src/hooks';
-import {AppRoute} from 'src/const';
+import {AppRoute, AuthorizationStatus} from 'src/const';
 
 
 const Film = ({data}: {data: FilmInfo}): JSX.Element => {
   const {genre, name, posterImage, released, backgroundImage} = data;
   const {similarFilms} = useAppSelector((_) => _.film);
+  const {authorizationStatus} = useAppSelector((_) => _.all);
 
   return (
     <section>
@@ -47,7 +48,9 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={AppRoute.Review} className="btn film-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatus.Auth
+                  ? <Link className="btn film-card__button" to={AppRoute.Review}>Add review</Link>
+                  : <Link className="btn film-card__button" to={AppRoute.SignIn}>Add review</Link>}
               </div>
             </div>
           </div>

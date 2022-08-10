@@ -1,8 +1,6 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
 import { Comment } from 'src/types/comment';
 import { FilmInfo } from 'src/types/films';
-// import { AuthorizationStatus, AppRoute} from 'src/const';
-
 
 export const actions = {
   fetch: createAction<FilmInfo['id']>('film/fetch'),

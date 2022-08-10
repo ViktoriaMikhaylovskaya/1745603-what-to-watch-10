@@ -3,7 +3,7 @@ export enum AppRoute {
   SignIn = '/login',
   MyList = '/mylist',
   Film = '/films/:id',
-  Review = '/films/:id/review',
+  Review = '/review',
   Player = '/player/:id'
 }
 
@@ -17,6 +17,7 @@ export enum APIRoute {
   Films = '/films',
   PromoFilm = '/promo',
   SimilarFilms = '/similar',
+  Review = '/review',
 
   FavoriteFilms = '/favorite',
   StatusFaviriteFilm = '/favorite/{filmId}/{status}',

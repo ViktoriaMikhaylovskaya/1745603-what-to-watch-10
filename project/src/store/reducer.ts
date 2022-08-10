@@ -8,11 +8,14 @@ const FILM_COUNT_PER_STEP = 8;
 export const actions = {
   changeGenre: createAction<GenreType>('film/changeGenre'),
   showMore: createAction('film/showMore'),
-  requireAuthorization: createAction<AuthorizationStatus>('user/requireAuthorization'),
   loadFilms: createAction<FilmInfo[]>('data/loadFilms'),
+
+  requireAuthorization: createAction<AuthorizationStatus>('user/requireAuthorization'),
   setError: createAction<string | null>('film/setError'),
   setDataLoadedStatus: createAction<boolean>('data/setDataLoadedStatus'),
+
   loadPromoFilm: createAction<FilmInfo>('data/loadPromoFilm'),
+
   redirectToRoute: createAction<AppRoute>('film/redirectToRoute'),
 };
 

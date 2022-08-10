@@ -69,16 +69,18 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
 
       <div className="page-content">
         {similarFilms.length >= 1
-          ? <section className="catalog catalog--like-this">
-            <h2 className="catalog__title">More like this</h2>
-            <div className="catalog__films-list">
-              {
-                similarFilms.slice(0, 4).map((film) => (
-                  <FilmCard key={film.id} filmInfo={film} />
-                ))
-              }
-            </div>
-          </section>
+          ? (
+            <section className="catalog catalog--like-this">
+              <h2 className="catalog__title">More like this</h2>
+              <div className="catalog__films-list">
+                {
+                  similarFilms.slice(0, 4).map((film) => (
+                    <FilmCard key={film.id} filmInfo={film} />
+                  ))
+                }
+              </div>
+            </section>
+          )
           : ''}
 
         <Footer />

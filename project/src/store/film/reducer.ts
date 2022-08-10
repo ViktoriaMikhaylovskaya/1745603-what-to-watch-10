@@ -6,7 +6,9 @@ export const actions = {
   fetch: createAction<FilmInfo['id']>('film/fetch'),
   fail: createAction<string>('film/fail'),
   success: createAction<FilmInfo>('film/success'),
+
   similarFilms: createAction<FilmInfo[]>('film/similarFilms'),
+
   comments: createAction<Comment[]>('film/comment'),
 };
 

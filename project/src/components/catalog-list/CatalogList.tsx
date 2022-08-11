@@ -1,11 +1,11 @@
 import {useAppSelector, useAppDispatch} from 'src/hooks';
 import { FilmCard } from 'src/components';
-import {actions} from 'src/store/reducer';
+import {actions} from 'src/store/genres/reducer';
 import { Genre, genres } from 'src/types/genre';
 
 
 const CatalogList = (): JSX.Element => {
-  const state = useAppSelector((_) => _.all);
+  const state = useAppSelector((_) => _.genre);
   const dispatch = useAppDispatch();
 
   const handleClick = () => {

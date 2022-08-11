@@ -3,13 +3,14 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from 'src/types/state';
 import {AuthData, UserData} from 'src/types/user-data';
 import {actions} from './reducer';
+import {actions as genreAction} from './genres/reducer';
+import {actions as filmActions} from 'src/store/film/reducer';
 import {FilmInfo} from 'src/types/films';
 import {Comment, AddComment} from 'src/types/comment';
 import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from 'src/const';
 import Token from 'src/services/token';
 import {store} from './';
-import {actions as filmActions} from 'src/store/film/reducer';
 
 export const TIMEOUT_SHOW_ERROR = 5000;
 
@@ -33,7 +34,7 @@ export const fetchFilmAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     dispatch(actions.setDataLoadedStatus(true));
     const {data} = await api.get<FilmInfo[]>(APIRoute.Films);
-    dispatch(actions.loadFilms(data));
+    dispatch(genreAction.loadFilms(data));
     dispatch(actions.setDataLoadedStatus(false));
   },
 );

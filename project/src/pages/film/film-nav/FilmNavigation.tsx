@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { Overview, Reviews, Details } from 'src/components';
+import { Overview } from './overview';
+import { Reviews } from './reviews';
+import { Details } from './details';
+import { FilmInfo } from 'src/types/films';
 
 const Tabs = {
   OVERVIEW: 'Overview',
@@ -7,8 +10,9 @@ const Tabs = {
   REVIEWS: 'Reviews',
 };
 
-const FilmNavigation = (): JSX.Element => {
+const FilmNavigation = ({data}: {data: FilmInfo}): JSX.Element => {
   const [selectedTab, setSelectedTab] = useState(Tabs.OVERVIEW);
+
   return (
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
@@ -27,8 +31,8 @@ const FilmNavigation = (): JSX.Element => {
         </ul>
       </nav>
 
-      {selectedTab === Tabs.OVERVIEW ? <Overview /> : null}
-      {selectedTab === Tabs.DETAILS ? <Details /> : null}
+      {selectedTab === Tabs.OVERVIEW ? <Overview data={data}/> : null}
+      {selectedTab === Tabs.DETAILS ? <Details data={data}/> : null}
       {selectedTab === Tabs.REVIEWS ? <Reviews /> : null}
     </div>
   );

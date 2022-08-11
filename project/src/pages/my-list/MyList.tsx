@@ -2,7 +2,7 @@ import { FilmCard, Logo, Footer, UserBlock } from 'src/components';
 import { useAppSelector } from 'src/hooks';
 
 const MyList = (): JSX.Element => {
-  const {originalFilmList} = useAppSelector((_) => _);
+  const {originalFilmList} = useAppSelector((_) => _.genre);
 
   return (
     <div className="user-page">

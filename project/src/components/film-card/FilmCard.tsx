@@ -29,7 +29,7 @@ const FilmCard = ({filmInfo}: Props): JSX.Element => {
           : <img src={filmInfo.previewImage} alt={filmInfo.name} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to="/films/:id">{filmInfo.name}</Link>
+        <Link className="small-film-card__link" to={`/films/${filmInfo.id}`}>{filmInfo.name}</Link>
       </h3>
     </article>
   );

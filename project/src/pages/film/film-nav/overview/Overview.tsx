@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
-import { useAppSelector } from 'src/hooks';
+import { FilmInfo } from 'src/types/films';
 
-const Overview = (): JSX.Element => {
-  const {promoFilm} = useAppSelector((_) => _);
-  const {rating, scoresCount, description, director, starring} = promoFilm;
+const Overview = ({data}: {data: FilmInfo}): JSX.Element => {
+  const {rating, scoresCount, description, director, starring} = data;
+
   return (
     <Fragment>
       <div className="film-rating">
@@ -18,7 +18,7 @@ const Overview = (): JSX.Element => {
         {description}
         <p className="film-card__director"><strong>Director: {director}</strong></p>
 
-        <p className="film-card__starring"><strong>Starring: {starring} and other</strong></p>
+        <p className="film-card__starring"><strong>Starring: {starring.join(', ')} and other</strong></p>
       </div>
     </Fragment>
   );

@@ -1,8 +1,8 @@
-import { useAppSelector } from 'src/hooks';
+import { FilmInfo } from 'src/types/films';
 
-const Details = (): JSX.Element => {
-  const {promoFilm} = useAppSelector((_) => _);
-  const {director, starring, genre, released, runTime} = promoFilm;
+const Details = ({data}: {data: FilmInfo}): JSX.Element => {
+  const {director, starring, genre, released, runTime} = data;
+
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">

@@ -5,7 +5,8 @@ import {Film, Main, MyList, SignIn, Player, Review, LoadingScreen} from 'src/pag
 import {NotFoundPage, PrivateRoute} from 'src/components';
 
 const App = (): JSX.Element => {
-  const {authorizationStatus, isDataLoaded} = useAppSelector((_) => _);
+  const {authorizationStatus, isDataLoaded} = useAppSelector((_) => _.all);
+  const {data} = useAppSelector((_) => _.film);
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (
@@ -19,7 +20,7 @@ const App = (): JSX.Element => {
         <Route path={'/'} element={<Main />}/>
         <Route path={AppRoute.Film} element={<Film />}/>
         <Route path={AppRoute.SignIn} element={<SignIn />}/>
-        <Route path={AppRoute.Review} element={<Review />}/>
+        <Route path={AppRoute.Review} element={<Review data={data}/>}/>
         <Route path={AppRoute.Player} element={<Player />}/>
 
         <Route path={AppRoute.MyList} element={

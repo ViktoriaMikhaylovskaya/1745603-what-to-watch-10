@@ -103,7 +103,7 @@ export const addCommentction = createAsyncThunk<void, AddComment, {
 }>(
   'data/addCommentction',
   async ({comment, rating, filmId}, {dispatch, extra: api}) => {
-    const {data} = await api.post<Comment[]>(`${APIRoute.AddComment}/${filmId}`, {comment, rating});
+    const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
     if(AuthorizationStatus.Auth) {
       dispatch(actions.redirectToRoute(AppRoute.Film));
       dispatch(filmActions.comments(data));

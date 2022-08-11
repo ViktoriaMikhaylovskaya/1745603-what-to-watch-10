@@ -48,9 +48,10 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                {authorizationStatus === AuthorizationStatus.Auth
-                  ? <Link className="btn film-card__button" to={AppRoute.Review}>Add review</Link>
-                  : <Link className="btn film-card__button" to={AppRoute.SignIn}>Add review</Link>}
+                <Link className="btn film-card__button"
+                  to={authorizationStatus === AuthorizationStatus.Auth ? AppRoute.Review : AppRoute.SignIn}
+                >Add review
+                </Link>
               </div>
             </div>
           </div>

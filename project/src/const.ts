@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -26,8 +28,9 @@ export enum APIRoute {
   Logout = '/logout',
 
   Comments = '/comments',
-  AddComment = '/comments',
 }
 
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
+
+export const humanizeDueDate = (date: string) => dayjs(date).format('MMMM D, YYYY');

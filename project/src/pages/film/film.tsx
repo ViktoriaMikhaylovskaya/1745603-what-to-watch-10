@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {FilmCard, Logo, Footer, UserBlock} from 'src/components';
 import {FilmNavigation} from './film-nav';
 import {FilmInfo} from 'src/types/films';
@@ -7,9 +7,15 @@ import {AppRoute, AuthorizationStatus} from 'src/const';
 
 
 const Film = ({data}: {data: FilmInfo}): JSX.Element => {
-  const {genre, name, posterImage, released, backgroundImage} = data;
+  const {genre, name, posterImage, released, backgroundImage, id} = data;
   const {similarFilms} = useAppSelector((_) => _.film);
   const {authorizationStatus} = useAppSelector((_) => _.all);
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/player/${id}`);
+  };
 
   return (
     <section>
@@ -35,7 +41,7 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" type="button" onClick={handleClick}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -60,7 +66,7 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
             <FilmNavigation data={data}/>

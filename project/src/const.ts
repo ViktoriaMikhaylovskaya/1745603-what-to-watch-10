@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -30,7 +28,16 @@ export enum APIRoute {
   Comments = '/comments',
 }
 
+export enum DurationTemplate {
+  MinutesSeconds = 'm[:] s',
+  HoursMinutesSeconds = 'H[:] m[:] s',
+  HoursMinutes = 'H[h] m[m]'
+}
+
+export enum TimeMetric {
+  Second = 'seconds',
+  Minute = 'minutes',
+}
+
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
-
-export const humanizeDueDate = (date: string) => dayjs(date).format('MMMM D, YYYY');

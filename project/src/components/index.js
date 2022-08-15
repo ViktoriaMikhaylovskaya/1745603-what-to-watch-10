@@ -9,3 +9,5 @@ export { default as MiniPlayer } from './mini-player/MiniPlayer';
 export { default as Footer } from './footer/Footer';
 export {default as ErrorMessage } from './error-message/ErrorMessage';
 export { default as UserBlock } from './user-block/UserBlock';
+export { default as Spinner } from './spinner/Spinner';
+

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { NotFoundPage } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { fetchCommentction, fetchSelectedFilmAction, fetchSimilarFilmAction } from 'src/store/api-actions';
 import { FilmInfo } from 'src/types/films';
@@ -36,7 +37,7 @@ const FilmContainer = (): JSX.Element => {
     );
   }
 
-  return <div></div>;
+  return <NotFoundPage />;
 
 };
 

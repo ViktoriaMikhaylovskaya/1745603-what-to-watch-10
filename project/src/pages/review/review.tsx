@@ -84,7 +84,6 @@ const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
-
           </div>
         </form>
       </div>

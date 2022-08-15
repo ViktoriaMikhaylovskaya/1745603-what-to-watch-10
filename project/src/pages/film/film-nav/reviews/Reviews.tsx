@@ -1,5 +1,5 @@
 import {useAppSelector} from 'src/hooks';
-import {humanizeDueDate} from 'src/const';
+import {humanizeDueDate} from 'src/utils';
 
 const Reviews = (): JSX.Element => {
   const {comments} = useAppSelector((_) => _.film);

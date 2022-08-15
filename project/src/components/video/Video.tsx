@@ -1,24 +1,35 @@
-import { useState, useEffect, useRef, Fragment} from 'react';
+import {useState, useEffect, useRef, Fragment, ChangeEvent} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {APIRoute} from 'src/const';
+import {FilmInfo} from 'src/types/films';
+import './player.css';
+import {formattingLastTime} from 'src/utils';
+import {Spinner} from 'src/components';
 
-type Props= {
-  autoPlay: boolean;
-  src: string;
-};
+enum ProgressPlay {
+  Start = 0,
+  End = 100,
+}
 
-const Video = ({src,autoPlay}: Props): JSX.Element => {
+const Video = ({data}: {data: FilmInfo}): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState<number>(ProgressPlay.Start);
+  const [lastTime, setLastTime] = useState<number>(ProgressPlay.Start);
+
   const clickButton = () => setIsPlaying(!isPlaying);
   const loadingData = () => setIsLoading(false);
+
+  const formatLastTime = formattingLastTime(lastTime);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     const element = videoRef.current;
+
     if (element === null) {
       return;
     }
-
 
     element.addEventListener('loadeddata', loadingData);
 
@@ -34,19 +45,82 @@ const Video = ({src,autoPlay}: Props): JSX.Element => {
     };
   }, [isPlaying]);
 
+  const navigate = useNavigate();
+
+  const handleClickExit = () => {
+    navigate(`${APIRoute.Films}/${data.id}`);
+    setIsPlaying(false);
+  };
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const currentProgress = (videoRef.current?.currentTime / videoRef.current?.duration) * ProgressPlay.End;
+      setProgress(currentProgress);
+      setLastTime(videoRef.current.duration - videoRef.current.currentTime);
+    }
+  };
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const initVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = ProgressPlay.Start;
+      togglePlay();
+    }
+  };
+
+  const handleEndPlay = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = ProgressPlay.Start;
+      setIsPlaying(false);
+    }
+  };
+
+  const handleVideoProgress = (evt: ChangeEvent<HTMLInputElement>) => {
+    const manualChange = Number(evt.target.value);
+    if (videoRef.current) {
+      videoRef.current.currentTime = (videoRef.current?.duration / ProgressPlay.End) * manualChange;
+      setProgress(manualChange);
+    }
+  };
+
+  const toggleFullscreen = () => {
+    videoRef.current?.requestFullscreen();
+  };
+
   return (
     <Fragment>
-      <video src={src} className="player__video" poster="img/player-poster.jpg" ref={videoRef}></video>
+      <video
+        src={data?.videoLink}
+        className="player__video"
+        poster={data?.name}
+        ref={videoRef}
+        onLoadedMetadata={initVideo}
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={handleEndPlay}
+      >
+      </video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button type="button" className="player__exit" onClick={handleClickExit}>Exit</button>
+
+      {isLoading ? <Spinner /> : '' }
 
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+            <input
+              className="player__progress"
+              type="range"
+              min="0"
+              max="100"
+              value={progress}
+              onChange={(evt) => handleVideoProgress(evt)}
+            />
+            <progress className="player__progress" value={progress} max="100"></progress>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">- {formatLastTime}</div>
         </div>
 
         <div className="player__controls-row">
@@ -56,9 +130,9 @@ const Video = ({src,autoPlay}: Props): JSX.Element => {
             </svg>
             <span>{isPlaying ? 'Pause' : 'Play'}</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{data.name}</div>
 
-          <button type="button" className="player__full-screen">
+          <button type="button" className="player__full-screen" onClick={toggleFullscreen}>
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>

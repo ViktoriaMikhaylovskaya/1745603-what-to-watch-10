@@ -1,14 +1,19 @@
-import {Video} from 'src/components';
+import {Video, NotFoundPage} from 'src/components';
 import { useAppSelector } from 'src/hooks';
+import { FilmInfo } from 'src/types/films';
 
 const Player = (): JSX.Element => {
-  const {promoFilm} = useAppSelector((_) => _.all);
+  const {data} = useAppSelector((_) => _.film);
 
-  return (
-    <div className="player">
-      <Video autoPlay src={promoFilm.videoLink} />
-    </div>
-  );
+  if(data !== null) {
+    return (
+      <div className="player">
+        <Video data={data as FilmInfo} />
+      </div>
+    );
+  }
+
+  return <NotFoundPage />;
 };
 
 export default Player;

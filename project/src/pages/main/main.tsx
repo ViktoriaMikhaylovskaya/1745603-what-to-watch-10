@@ -1,9 +1,17 @@
 import { useAppSelector } from 'src/hooks';
+import {useNavigate} from 'react-router-dom';
 import { Logo, CatalogList, Footer, UserBlock } from 'src/components';
+import { AppRoute } from 'src/const';
 
 const Main = (): JSX.Element => {
   const {promoFilm} = useAppSelector((_) => _.all);
-  const {backgroundImage, posterImage, name, genre, released} = promoFilm;
+  const {backgroundImage, posterImage, name, genre, released, id} = promoFilm;
+
+  const navigate = useNavigate();
+
+  const handleClickPlay = () => {
+    navigate(`${AppRoute.Player}/${id}`);
+  };
 
   return (
     <section>
@@ -35,7 +43,7 @@ const Main = (): JSX.Element => {
                   </p>
 
                   <div className="film-card__buttons">
-                    <button className="btn btn--play film-card__button" type="button">
+                    <button className="btn btn--play film-card__button" type="button" onClick={handleClickPlay}>
                       <svg viewBox="0 0 19 19" width="19" height="19">
                         <use xlinkHref="#play-s"></use>
                       </svg>

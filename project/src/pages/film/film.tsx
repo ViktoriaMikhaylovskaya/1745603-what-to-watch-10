@@ -2,19 +2,31 @@ import {Link, useNavigate} from 'react-router-dom';
 import {FilmCard, Logo, Footer, UserBlock} from 'src/components';
 import {FilmNavigation} from './film-nav';
 import {FilmInfo} from 'src/types/films';
-import {useAppSelector} from 'src/hooks';
+import {useAppDispatch, useAppSelector} from 'src/hooks';
 import {AppRoute, AuthorizationStatus} from 'src/const';
+import { addToFavoriteAction } from 'src/store/api-actions';
 
 
 const Film = ({data}: {data: FilmInfo}): JSX.Element => {
-  const {genre, name, posterImage, released, backgroundImage, id} = data;
+  const {genre, name, posterImage, released, backgroundImage, id, isFavorite} = data;
   const {similarFilms} = useAppSelector((_) => _.film);
   const {authorizationStatus} = useAppSelector((_) => _.all);
+  const {favoriteFilms} = useAppSelector((_) => _.favorite) as {favoriteFilms: FilmInfo[]};
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
     navigate(`/player/${id}`);
+  };
+
+  const handleClickMyList = () => {
+    if(authorizationStatus === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.SignIn);
+    }
+
+    const status = +!isFavorite;
+    dispatch(addToFavoriteAction({id, status}));
   };
 
   return (
@@ -47,12 +59,16 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
+                <button className="btn btn--list film-card__button" type="button" onClick={handleClickMyList}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    {
+                      isFavorite
+                        ? <use xlinkHref="#in-list"/>
+                        : <use xlinkHref="#add"/>
+                    }
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{favoriteFilms.length}</span>
                 </button>
                 <Link className="btn film-card__button"
                   to={authorizationStatus === AuthorizationStatus.Auth ? AppRoute.Review : AppRoute.SignIn}

@@ -1,16 +1,29 @@
-import { useAppSelector } from 'src/hooks';
+import {useAppSelector, useAppDispatch} from 'src/hooks';
 import {useNavigate} from 'react-router-dom';
-import { Logo, CatalogList, Footer, UserBlock } from 'src/components';
-import { AppRoute } from 'src/const';
+import {Logo, CatalogList, Footer, UserBlock} from 'src/components';
+import {AppRoute, AuthorizationStatus} from 'src/const';
+import {FilmInfo} from 'src/types/films';
+import {addToFavoriteAction} from 'src/store/api-actions';
 
 const Main = (): JSX.Element => {
-  const {promoFilm} = useAppSelector((_) => _.all);
-  const {backgroundImage, posterImage, name, genre, released, id} = promoFilm;
+  const {promoFilm, authorizationStatus} = useAppSelector((_) => _.all);
+  const {favoriteFilms} = useAppSelector((_) => _.favorite) as {favoriteFilms: FilmInfo[]};
+  const {backgroundImage, posterImage, name, genre, released, id, isFavorite} = promoFilm;
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleClickPlay = () => {
-    navigate(`${AppRoute.Player}/${id}`);
+    navigate(`player/${id}`);
+  };
+
+  const handleClickMyList = () => {
+    if(authorizationStatus === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.SignIn);
+    }
+
+    const status = +!isFavorite;
+    dispatch(addToFavoriteAction({id, status}));
   };
 
   return (
@@ -49,12 +62,16 @@ const Main = (): JSX.Element => {
                       </svg>
                       <span>Play</span>
                     </button>
-                    <button className="btn btn--list film-card__button" type="button">
+                    <button className="btn btn--list film-card__button" type="button" onClick={handleClickMyList}>
                       <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
+                        {
+                          isFavorite
+                            ? <use xlinkHref="#in-list"/>
+                            : <use xlinkHref="#add"/>
+                        }
                       </svg>
                       <span>My list</span>
-                      <span className="film-card__count">9</span>
+                      <span className="film-card__count">{favoriteFilms.length}</span>
                     </button>
                   </div>
                 </div>

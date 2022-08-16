@@ -5,6 +5,7 @@ import {AuthData, UserData} from 'src/types/user-data';
 import {actions} from './reducer';
 import {actions as genreAction} from './genres/reducer';
 import {actions as filmActions} from 'src/store/film/reducer';
+import {actions as favoriteActions} from 'src/store/favoriteFilms/reducer';
 import {FilmInfo} from 'src/types/films';
 import {Comment, AddComment} from 'src/types/comment';
 import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
@@ -73,6 +74,28 @@ export const fetchSelectedFilmAction = createAsyncThunk<void, FilmInfo['id'], Se
   },
 );
 
+export const fetchFavoriteFilmsAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/favoriteFilms',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<FilmInfo[]>(APIRoute.FavoriteFilms);
+    dispatch(favoriteActions.favorite(data));
+  },
+);
+
+export const addToFavoriteAction = createAsyncThunk<FilmInfo, { id: number, status: number }, {
+  extra: AxiosInstance
+}>(
+  'favorite/addToFavorite',
+  async ({id, status}, {extra: api}) => {
+    const {data} = await api.post<FilmInfo>(`${APIRoute.FavoriteFilms}/${id}/${status}`);
+    return data;
+  }
+);
+
 export const fetchSimilarFilmAction = createAsyncThunk<void, FilmInfo['id'], {
   dispatch: AppDispatch,
   state: State,
@@ -97,12 +120,12 @@ export const fetchCommentction = createAsyncThunk<void, FilmInfo['id'], {
   }
 );
 
-export const addCommentction = createAsyncThunk<void, AddComment, {
+export const addCommentAction = createAsyncThunk<void, AddComment, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/addCommentction',
+  'data/addCommentAction',
   async ({comment, rating, filmId}, {dispatch, extra: api}) => {
     const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
     if(AuthorizationStatus.Auth) {

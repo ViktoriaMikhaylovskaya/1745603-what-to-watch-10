@@ -12,7 +12,7 @@ export const actions = {
   comments: createAction<Comment[]>('film/comment'),
 };
 
-type InitalState = {
+export type InitalState = {
   data: FilmInfo | null,
   isLoading: boolean,
   error: string | null,

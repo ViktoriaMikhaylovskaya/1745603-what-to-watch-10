@@ -6,6 +6,8 @@ import {actions} from './reducer';
 import {actions as genreAction} from './genres/reducer';
 import {actions as filmActions} from 'src/store/film/reducer';
 import {actions as favoriteActions} from 'src/store/favoriteFilms/reducer';
+import {actions as promoActions} from 'src/store/promo/reducer';
+import {actions as errorActions} from 'src/store/error/reducer';
 import {FilmInfo} from 'src/types/films';
 import {Comment, AddComment} from 'src/types/comment';
 import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
@@ -19,7 +21,7 @@ export const clearErrorAction = createAsyncThunk(
   'film/clearError',
   () => {
     setTimeout(
-      () => store.dispatch(actions.setError(null)),
+      () => store.dispatch(errorActions.setError(null)),
       TIMEOUT_SHOW_ERROR,
     );
   },
@@ -48,7 +50,7 @@ export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
   'data/fetchPromoFilm',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<FilmInfo>(APIRoute.PromoFilm);
-    dispatch(actions.loadPromoFilm(data));
+    dispatch(promoActions.loadPromoFilm(data));
   },
 );
 
@@ -86,13 +88,25 @@ export const fetchFavoriteFilmsAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const addToFavoriteAction = createAsyncThunk<FilmInfo, { id: number, status: number }, {
+// export const addToFavoriteAction = createAsyncThunk<FilmInfo, { id: number, status: number }, {
+//   extra: AxiosInstance
+// }>(
+//   'favorite/addToFavorite',
+//   async ({id, status}, {extra: api}) => {
+//     const {data} = await api.post<FilmInfo>(`${APIRoute.FavoriteFilms}/${id}/${status}`);
+//     return data;
+//   }
+// );
+
+export const addToFavoriteAction = createAsyncThunk<void, { id: number, status: number }, {
+  dispatch: AppDispatch,
+  state: State,
   extra: AxiosInstance
 }>(
   'favorite/addToFavorite',
-  async ({id, status}, {extra: api}) => {
-    const {data} = await api.post<FilmInfo>(`${APIRoute.FavoriteFilms}/${id}/${status}`);
-    return data;
+  async ({id, status}, {dispatch, extra: api}) => {
+    const {data} = await api.post<FilmInfo[]>(`${APIRoute.FavoriteFilms}/${id}/${status}`);
+    dispatch(favoriteActions.favorite(data));
   }
 );
 

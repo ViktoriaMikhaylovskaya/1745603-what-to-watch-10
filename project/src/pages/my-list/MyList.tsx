@@ -1,9 +1,8 @@
 import { FilmCard, Logo, Footer, UserBlock } from 'src/components';
-import { useAppSelector } from 'src/hooks';
-import { FilmInfo } from 'src/types/films';
+import { useFavorite } from 'src/store/favoriteFilms/selectors';
 
 const MyList = (): JSX.Element => {
-  const {favoriteFilms} = useAppSelector((_) => _.favorite) as {favoriteFilms: FilmInfo[]};
+  const { favoriteFilms } = useFavorite();
 
   return (
     <div className="user-page">

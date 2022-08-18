@@ -1,10 +1,11 @@
 import { AppRoute, AuthorizationStatus } from 'src/const';
 import { Link } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from 'src/hooks';
-import { logoutAction} from 'src/store/api-actions';
+import { useAppDispatch } from 'src/hooks';
+import { logoutAction } from 'src/store/api-actions';
+import { useAuth } from 'src/store/selectors';
 
 const UserBlock = (): JSX.Element => {
-  const {authorizationStatus} = useAppSelector((_) => _.all);
+  const {authorizationStatus} = useAuth();
   const dispatch = useAppDispatch();
 
   const handleSubmit = () => {

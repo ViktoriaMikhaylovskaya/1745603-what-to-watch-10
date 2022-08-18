@@ -2,16 +2,20 @@ import {Link, useNavigate} from 'react-router-dom';
 import {FilmCard, Logo, Footer, UserBlock} from 'src/components';
 import {FilmNavigation} from './film-nav';
 import {FilmInfo} from 'src/types/films';
-import {useAppDispatch, useAppSelector} from 'src/hooks';
+import {useAppDispatch} from 'src/hooks';
 import {AppRoute, AuthorizationStatus} from 'src/const';
-import { addToFavoriteAction } from 'src/store/api-actions';
+import {addToFavoriteAction} from 'src/store/api-actions';
+import {useFavorite} from 'src/store/favoriteFilms/selectors';
+import {useFilm} from 'src/store/film/selectors';
+import {useAuth} from 'src/store/selectors';
 
 
 const Film = ({data}: {data: FilmInfo}): JSX.Element => {
   const {genre, name, posterImage, released, backgroundImage, id, isFavorite} = data;
-  const {similarFilms} = useAppSelector((_) => _.film);
-  const {authorizationStatus} = useAppSelector((_) => _.all);
-  const {favoriteFilms} = useAppSelector((_) => _.favorite) as {favoriteFilms: FilmInfo[]};
+  const {similarFilms} = useFilm();
+  const {authorizationStatus} = useAuth();
+  const { favoriteFilms } = useFavorite();
+  // const [isUpdate, setIsUpdate] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -25,9 +29,17 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
       navigate(AppRoute.SignIn);
     }
 
-    const status = +!isFavorite;
+    const status = Number(isFavorite);
     dispatch(addToFavoriteAction({id, status}));
+    // setIsUpdate(true);
   };
+
+  // useEffect(() => {
+  //   if(isUpdate) {
+  //     dispatch(fetchFavoriteFilmsAction());
+  //     setIsUpdate(false);
+  //   }
+  // }, [isUpdate]);
 
   return (
     <section>

@@ -10,7 +10,7 @@ export const actions = {
   loadFilms: createAction<FilmInfo[]>('data/loadFilms'),
 };
 
-type InitalState = {
+export type InitalState = {
   genre: string,
   filmList: FilmInfo[],
   originalFilmList: FilmInfo[],

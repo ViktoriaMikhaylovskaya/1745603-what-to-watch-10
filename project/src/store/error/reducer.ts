@@ -1,22 +1,21 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
-import { FilmInfo } from 'src/types/films';
 
 export const actions = {
-  favorite: createAction<FilmInfo[]>('films/success'),
+  setError: createAction<string | null>('film/setError'),
 };
 
 export type State = {
-  favoriteFilms: FilmInfo[],
+  error: string | null,
 };
 
 const initalState: State = {
-  favoriteFilms: [],
+  error: null,
 };
 
 const reducer = createReducer(initalState, (builder) => {
   builder
-    .addCase(actions.favorite, (state, {payload}) => {
-      state.favoriteFilms = payload;
+    .addCase(actions.setError, (state, {payload}) => {
+      state.error = payload;
     });
 });
 

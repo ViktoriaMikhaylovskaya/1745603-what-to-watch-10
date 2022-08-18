@@ -1,13 +1,16 @@
-import {useAppSelector, useAppDispatch} from 'src/hooks';
+import {useAppDispatch} from 'src/hooks';
 import {useNavigate} from 'react-router-dom';
 import {Logo, CatalogList, Footer, UserBlock} from 'src/components';
 import {AppRoute, AuthorizationStatus} from 'src/const';
-import {FilmInfo} from 'src/types/films';
 import {addToFavoriteAction} from 'src/store/api-actions';
+import { useFavorite } from 'src/store/favoriteFilms/selectors';
+import { usePromo } from 'src/store/promo/selectors';
+import { useAuth } from 'src/store/selectors';
 
 const Main = (): JSX.Element => {
-  const {promoFilm, authorizationStatus} = useAppSelector((_) => _.all);
-  const {favoriteFilms} = useAppSelector((_) => _.favorite) as {favoriteFilms: FilmInfo[]};
+  const { promoFilm } = usePromo();
+  const { favoriteFilms } = useFavorite();
+  const { authorizationStatus } = useAuth();
   const {backgroundImage, posterImage, name, genre, released, id, isFavorite} = promoFilm;
 
   const navigate = useNavigate();

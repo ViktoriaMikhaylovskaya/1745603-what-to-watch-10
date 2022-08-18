@@ -1,9 +1,9 @@
 import {Video, NotFoundPage} from 'src/components';
-import { useAppSelector } from 'src/hooks';
+import { useFilm } from 'src/store/film/selectors';
 import { FilmInfo } from 'src/types/films';
 
 const Player = (): JSX.Element => {
-  const {data} = useAppSelector((_) => _.film);
+  const {data} = useFilm();
 
   if(data !== null) {
     return (

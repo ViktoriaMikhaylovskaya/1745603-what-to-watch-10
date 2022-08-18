@@ -116,7 +116,7 @@ const Video = ({data}: {data: FilmInfo}): JSX.Element => {
               min="0"
               max="100"
               value={progress}
-              onChange={(evt) => handleVideoProgress(evt)}
+              onChange={handleVideoProgress}
             />
             <progress className="player__progress" value={progress} max="100"></progress>
           </div>

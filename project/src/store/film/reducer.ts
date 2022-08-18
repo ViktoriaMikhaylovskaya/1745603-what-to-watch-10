@@ -6,7 +6,7 @@ export const actions = {
   fetch: createAction<FilmInfo['id']>('film/fetch'),
   fail: createAction<string>('film/fail'),
   success: createAction<FilmInfo>('film/success'),
-
+  markAsFavorite: createAction<boolean>('film/filmUpdate'),
   similarFilms: createAction<FilmInfo[]>('film/similarFilms'),
 
   comments: createAction<Comment[]>('film/comment'),
@@ -49,6 +49,11 @@ const reducer = createReducer(initalState, (builder) => {
     .addCase(actions.comments, (state, {payload}) => {
       state.isLoading = false;
       state.comments = payload;
+    })
+    .addCase(actions.markAsFavorite, (state, {payload}) => {
+      if(state.data !== null) {
+        state.data.isFavorite = payload;
+      }
     });
 });
 

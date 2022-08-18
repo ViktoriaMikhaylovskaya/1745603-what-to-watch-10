@@ -88,25 +88,16 @@ export const fetchFavoriteFilmsAction = createAsyncThunk<void, undefined, {
   },
 );
 
-// export const addToFavoriteAction = createAsyncThunk<FilmInfo, { id: number, status: number }, {
-//   extra: AxiosInstance
-// }>(
-//   'favorite/addToFavorite',
-//   async ({id, status}, {extra: api}) => {
-//     const {data} = await api.post<FilmInfo>(`${APIRoute.FavoriteFilms}/${id}/${status}`);
-//     return data;
-//   }
-// );
-
-export const addToFavoriteAction = createAsyncThunk<void, { id: number, status: number }, {
+export const addToFavoriteAction = createAsyncThunk<void, { id: number, status: boolean }, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'favorite/addToFavorite',
   async ({id, status}, {dispatch, extra: api}) => {
-    const {data} = await api.post<FilmInfo[]>(`${APIRoute.FavoriteFilms}/${id}/${status}`);
-    dispatch(favoriteActions.favorite(data));
+    await api.post<FilmInfo[]>(`${APIRoute.FavoriteFilms}/${id}/${Number(status)}`);
+    dispatch(fetchFavoriteFilmsAction());
+    dispatch(filmActions.markAsFavorite(status));
   }
 );
 

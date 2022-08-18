@@ -30,12 +30,12 @@ const CatalogList = (): JSX.Element => {
 
       <div className="catalog__films-list">
         {
-          state.originalFilmList.map((film) => (<FilmCard key={film.id} filmInfo={film} />))
+          state.filmList.map((film) => (<FilmCard key={film.id} filmInfo={film} />))
         }
       </div>
 
 
-      {!state.isEndOfTheList && state.originalFilmList.length !== 0
+      {!state.isEndOfTheList && state.filteredList.length !== 0
         ? (
           <div className="catalog__more">
             <button className="catalog__button" type="button" onClick={handleClick}>Show more</button>

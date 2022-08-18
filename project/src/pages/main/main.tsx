@@ -25,8 +25,7 @@ const Main = (): JSX.Element => {
       navigate(AppRoute.SignIn);
     }
 
-    const status = +!isFavorite;
-    dispatch(addToFavoriteAction({id, status}));
+    dispatch(addToFavoriteAction({id, status: !isFavorite}));
   };
 
   return (

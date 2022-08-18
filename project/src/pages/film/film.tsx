@@ -15,7 +15,6 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
   const {similarFilms} = useFilm();
   const {authorizationStatus} = useAuth();
   const { favoriteFilms } = useFavorite();
-  // const [isUpdate, setIsUpdate] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -29,17 +28,8 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
       navigate(AppRoute.SignIn);
     }
 
-    const status = Number(isFavorite);
-    dispatch(addToFavoriteAction({id, status}));
-    // setIsUpdate(true);
+    dispatch(addToFavoriteAction({id, status: !isFavorite}));
   };
-
-  // useEffect(() => {
-  //   if(isUpdate) {
-  //     dispatch(fetchFavoriteFilmsAction());
-  //     setIsUpdate(false);
-  //   }
-  // }, [isUpdate]);
 
   return (
     <section>

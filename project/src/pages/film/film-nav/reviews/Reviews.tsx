@@ -1,8 +1,8 @@
-import {useAppSelector} from 'src/hooks';
-import {humanizeDueDate} from 'src/const';
+import { useFilm } from 'src/store/film/selectors';
+import {humanizeDueDate} from 'src/utils';
 
 const Reviews = (): JSX.Element => {
-  const {comments} = useAppSelector((_) => _.film);
+  const {comments} = useFilm();
 
   return (
     <div className="film-card__reviews film-card__row">

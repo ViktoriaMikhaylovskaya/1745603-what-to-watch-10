@@ -1,9 +1,32 @@
-import { useAppSelector } from 'src/hooks';
-import { Logo, CatalogList, Footer, UserBlock } from 'src/components';
+import {useAppDispatch} from 'src/hooks';
+import {useNavigate} from 'react-router-dom';
+import {Logo, CatalogList, Footer, UserBlock} from 'src/components';
+import {AppRoute, AuthorizationStatus} from 'src/const';
+import {addToFavoriteAction} from 'src/store/api-actions';
+import { useFavorite } from 'src/store/favoriteFilms/selectors';
+import { usePromo } from 'src/store/promo/selectors';
+import { useAuth } from 'src/store/selectors';
 
 const Main = (): JSX.Element => {
-  const {promoFilm} = useAppSelector((_) => _.all);
-  const {backgroundImage, posterImage, name, genre, released} = promoFilm;
+  const { promoFilm } = usePromo();
+  const { favoriteFilms } = useFavorite();
+  const { authorizationStatus } = useAuth();
+  const {backgroundImage, posterImage, name, genre, released, id, isFavorite} = promoFilm;
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleClickPlay = () => {
+    navigate(`player/${id}`);
+  };
+
+  const handleClickMyList = () => {
+    if(authorizationStatus === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.SignIn);
+    }
+
+    dispatch(addToFavoriteAction({id, status: !isFavorite}));
+  };
 
   return (
     <section>
@@ -35,18 +58,22 @@ const Main = (): JSX.Element => {
                   </p>
 
                   <div className="film-card__buttons">
-                    <button className="btn btn--play film-card__button" type="button">
+                    <button className="btn btn--play film-card__button" type="button" onClick={handleClickPlay}>
                       <svg viewBox="0 0 19 19" width="19" height="19">
                         <use xlinkHref="#play-s"></use>
                       </svg>
                       <span>Play</span>
                     </button>
-                    <button className="btn btn--list film-card__button" type="button">
+                    <button className="btn btn--list film-card__button" type="button" onClick={handleClickMyList}>
                       <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
+                        {
+                          isFavorite
+                            ? <use xlinkHref="#in-list"/>
+                            : <use xlinkHref="#add"/>
+                        }
                       </svg>
                       <span>My list</span>
-                      <span className="film-card__count">9</span>
+                      <span className="film-card__count">{favoriteFilms.length}</span>
                     </button>
                   </div>
                 </div>

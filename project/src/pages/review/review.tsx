@@ -4,7 +4,7 @@ import {Logo, UserBlock} from 'src/components';
 import {useAppDispatch} from 'src/hooks';
 import {APIRoute} from 'src/const';
 import {FilmInfo} from 'src/types/films';
-import {addCommentction} from 'src/store/api-actions';
+import {addCommentAction} from 'src/store/api-actions';
 import {processErrorHandle} from 'src/services/process-error-handle';
 
 
@@ -26,7 +26,7 @@ const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
     if (comment === '' && filmRating === 0) {
       processErrorHandle('Пожалуйста, поставьте оценку и введите комментарий.');
     } else {
-      dispatch(addCommentction({rating: filmRating, comment, filmId: id}));
+      dispatch(addCommentAction({rating: filmRating, comment, filmId: id}));
       navigate(`${APIRoute.Films}/${id}`);
     }
 
@@ -84,7 +84,6 @@ const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
-
           </div>
         </form>
       </div>

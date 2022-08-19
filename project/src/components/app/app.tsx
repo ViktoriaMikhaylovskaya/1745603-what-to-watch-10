@@ -1,12 +1,13 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {useAppSelector} from 'src/hooks';
 import {AppRoute, isCheckedAuth} from 'src/const';
 import {Film, Main, MyList, SignIn, Player, Review, LoadingScreen} from 'src/pages';
 import {NotFoundPage, PrivateRoute} from 'src/components';
+import { useFilm } from 'src/store/film/selectors';
+import { useAuth } from 'src/store/selectors';
 
 const App = (): JSX.Element => {
-  const {authorizationStatus, isDataLoaded} = useAppSelector((_) => _.all);
-  const {data} = useAppSelector((_) => _.film);
+  const {authorizationStatus, isDataLoaded} = useAuth();
+  const {data} = useFilm();
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (

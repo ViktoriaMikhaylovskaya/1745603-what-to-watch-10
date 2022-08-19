@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { NotFoundPage } from 'src/components';
+import { useAppDispatch } from 'src/hooks';
 import { fetchCommentction, fetchSelectedFilmAction, fetchSimilarFilmAction } from 'src/store/api-actions';
+import { useFilm } from 'src/store/film/selectors';
 import { FilmInfo } from 'src/types/films';
 import Film from './film';
+import { LoadingScreen } from 'src/pages';
 
 
 const FilmContainer = (): JSX.Element => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const state = useAppSelector((_) => _.film);
+  const state = useFilm();
 
   useEffect(() => {
     if (typeof id === 'string') {
@@ -22,7 +25,7 @@ const FilmContainer = (): JSX.Element => {
 
   if (state.isLoading) {
     return (
-      <div>Loading</div>
+      <LoadingScreen />
     );
   } else if(state.error) {
     return (
@@ -36,7 +39,7 @@ const FilmContainer = (): JSX.Element => {
     );
   }
 
-  return <div></div>;
+  return <NotFoundPage />;
 
 };
 

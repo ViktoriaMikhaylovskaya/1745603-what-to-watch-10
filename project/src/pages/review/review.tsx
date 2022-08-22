@@ -9,6 +9,8 @@ import {processErrorHandle} from 'src/services/process-error-handle';
 
 
 const STARS = [10,9,8,7,6,5,4,3,2,1];
+const MIN_LENGTH_TEXT = 50;
+const MAX_LENGTH_TEXT = 400;
 
 const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
   const {backgroundImage, name, posterImage, id} = data || {};
@@ -23,8 +25,8 @@ const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (comment === '' && filmRating === 0) {
-      processErrorHandle('Пожалуйста, поставьте оценку и введите комментарий.');
+    if (comment === '' || filmRating === 0) {
+      processErrorHandle('Пожалуйста, поставьте оценку и введите комментарий (не меньше 50 символов).');
     } else {
       dispatch(addCommentAction({rating: filmRating, comment, filmId: id}));
       navigate(`${APIRoute.Films}/${id}`);
@@ -80,9 +82,16 @@ const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
           </div>
 
           <div className="add-review__text">
-            <textarea className="add-review__textarea" name="comment" id="review-text" placeholder="Review text" onChange={handleChange} value={comment}></textarea>
+            <textarea className="add-review__textarea"
+              name="comment" id="review-text"
+              placeholder="Review text"
+              onChange={handleChange}
+              value={comment}
+              maxLength={MAX_LENGTH_TEXT}
+            >
+            </textarea>
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              <button className="add-review__btn" type="submit" disabled={Number(comment.length) <= MIN_LENGTH_TEXT}>Post</button>
             </div>
           </div>
         </form>

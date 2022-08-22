@@ -1,4 +1,5 @@
 import { FilmInfo } from 'src/types/films';
+import { formattingLastTime } from 'src/utils';
 
 const Details = ({data}: {data: FilmInfo}): JSX.Element => {
   const {director, starring, genre, released, runTime} = data;
@@ -19,7 +20,7 @@ const Details = ({data}: {data: FilmInfo}): JSX.Element => {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{runTime}</span>
+          <span className="film-card__details-value">{formattingLastTime(runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

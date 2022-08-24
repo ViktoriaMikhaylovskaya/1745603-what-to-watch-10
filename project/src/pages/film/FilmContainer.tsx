@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { NotFoundPage } from 'src/components';
-import { useAppDispatch } from 'src/hooks';
 import { fetchCommentction, fetchSelectedFilmAction, fetchSimilarFilmAction } from 'src/store/api-actions';
 import { useFilm } from 'src/store/film/selectors';
+import { NotFoundPage } from 'src/components';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from 'src/hooks';
 import { FilmInfo } from 'src/types/films';
-import Film from './film';
 import { LoadingScreen } from 'src/pages';
+import { useEffect } from 'react';
+import Film from './film';
 
 
 const FilmContainer = (): JSX.Element => {

@@ -21,12 +21,18 @@ const App = (): JSX.Element => {
         <Route path={'/'} element={<Main />}/>
         <Route path={AppRoute.Film} element={<Film />}/>
         <Route path={AppRoute.SignIn} element={<SignIn />}/>
-        <Route path={AppRoute.Review} element={<Review data={data}/>}/>
         <Route path={AppRoute.Player} element={<Player />}/>
 
         <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={authorizationStatus}>
             <MyList />
+          </PrivateRoute>
+        }
+        />
+
+        <Route path={AppRoute.Review} element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <Review data={data}/>
           </PrivateRoute>
         }
         />

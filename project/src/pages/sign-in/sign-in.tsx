@@ -7,6 +7,9 @@ import {AppRoute} from 'src/const';
 import {AuthData} from 'src/types/user-data';
 import {processErrorHandle} from 'src/services/process-error-handle';
 
+const containsLetters = /[a-zA-Z]/;
+const containsNumbers = /[0-9]/;
+
 const SignIn = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -18,7 +21,11 @@ const SignIn = (): JSX.Element => {
     const formData = new FormData(target);
     const data = Object.fromEntries(formData) as AuthData;
 
-    if (data.login !== '' && data.password !== '') {
+    if (data.login !== '' &&
+      data.password !== '' &&
+      containsLetters.test(data.password) &&
+      containsNumbers.test(data.password) ){
+
       dispatch(loginAction(data));
       navigate(AppRoute.Main);
     } else {

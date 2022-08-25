@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Overview } from './overview';
-import { Reviews } from './reviews';
-import { Details } from './details';
 import { FilmInfo } from 'src/types/films';
+import { Overview } from './overview';
+import { Details } from './details';
+import { Reviews } from './reviews';
 
 const Tabs = {
   OVERVIEW: 'Overview',

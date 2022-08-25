@@ -1,5 +1,5 @@
 import { AppRoute, AuthorizationStatus } from 'src/const';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'src/hooks';
 import { logoutAction } from 'src/store/api-actions';
 import { useAuth } from 'src/store/selectors';
@@ -7,6 +7,7 @@ import { useAuth } from 'src/store/selectors';
 const UserBlock = (): JSX.Element => {
   const {authorizationStatus} = useAuth();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     if(authorizationStatus === AuthorizationStatus.Auth) {
@@ -14,10 +15,17 @@ const UserBlock = (): JSX.Element => {
     }
   };
 
+  const handleClickAvatar = () => {
+    if(authorizationStatus === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.SignIn);
+    }
+    navigate(AppRoute.MyList);
+  };
+
   return (
     <ul className="user-block">
       <li className="user-block__item">
-        <div className="user-block__avatar">
+        <div className="user-block__avatar" onClick={handleClickAvatar}>
           <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
         </div>
       </li>

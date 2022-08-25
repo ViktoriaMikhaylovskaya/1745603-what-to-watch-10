@@ -3,9 +3,11 @@ import {useNavigate} from 'react-router-dom';
 import {Logo, CatalogList, Footer, UserBlock} from 'src/components';
 import {AppRoute, AuthorizationStatus} from 'src/const';
 import {addToFavoriteAction} from 'src/store/api-actions';
-import { useFavorite } from 'src/store/favoriteFilms/selectors';
-import { usePromo } from 'src/store/promo/selectors';
-import { useAuth } from 'src/store/selectors';
+import {useFavorite} from 'src/store/favoriteFilms/selectors';
+import {usePromo} from 'src/store/promo/selectors';
+import {useAuth} from 'src/store/selectors';
+import {actions} from 'src/store/film/reducer';
+
 
 const Main = (): JSX.Element => {
   const { promoFilm } = usePromo();
@@ -17,7 +19,8 @@ const Main = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const handleClickPlay = () => {
-    navigate(`player/${id}`);
+    dispatch(actions.success(promoFilm));
+    navigate(`player/${id}?backUrl=${window.location.origin}`);
   };
 
   const handleClickMyList = () => {

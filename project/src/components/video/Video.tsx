@@ -1,10 +1,10 @@
 import {useState, useEffect, useRef, Fragment, ChangeEvent} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {APIRoute} from 'src/const';
-import {FilmInfo} from 'src/types/films';
-import './player.css';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import {formattingLastTime} from 'src/utils';
+import {FilmInfo} from 'src/types/films';
 import {Spinner} from 'src/components';
+import {APIRoute, AppRoute} from 'src/const';
+import './video.css';
 
 enum ProgressPlay {
   Start = 0,
@@ -12,6 +12,7 @@ enum ProgressPlay {
 }
 
 const Video = ({data}: {data: FilmInfo}): JSX.Element => {
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState<number>(ProgressPlay.Start);
@@ -48,8 +49,12 @@ const Video = ({data}: {data: FilmInfo}): JSX.Element => {
   const navigate = useNavigate();
 
   const handleClickExit = () => {
-    navigate(`${APIRoute.Films}/${data.id}`);
-    setIsPlaying(false);
+    if(searchParams.get('backUrl')) {
+      navigate(AppRoute.Main);
+    } else {
+      navigate(`${APIRoute.Films}/${data.id}`);
+      setIsPlaying(false);
+    }
   };
 
   const handleTimeUpdate = () => {

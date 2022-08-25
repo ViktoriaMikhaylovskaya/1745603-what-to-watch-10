@@ -14,6 +14,7 @@ import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from 'src/const';
 import Token from 'src/services/token';
 import {store} from './';
+import {processErrorHandle} from 'src/services/process-error-handle';
 
 export const TIMEOUT_SHOW_ERROR = 5000;
 
@@ -132,11 +133,16 @@ export const addCommentAction = createAsyncThunk<void, AddComment, {
 }>(
   'data/addCommentAction',
   async ({comment, rating, filmId}, {dispatch, extra: api}) => {
-    const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
-    if(AuthorizationStatus.Auth) {
-      dispatch(actions.redirectToRoute(AppRoute.Film));
-      dispatch(filmActions.comments(data));
+    try {
+      const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
+      if(AuthorizationStatus.Auth) {
+        dispatch(actions.redirectToRoute(AppRoute.Film));
+        dispatch(filmActions.comments(data));
+      }
+    } catch (error) {
+      processErrorHandle('Что-то пошло не так. Перезагрузите страницу и попробуйте заново.');
     }
+
   },
 );
 

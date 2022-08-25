@@ -1,1 +1,1 @@
-export { default as Film } from './FilmContainer';
+export { default as Film } from './film-container';

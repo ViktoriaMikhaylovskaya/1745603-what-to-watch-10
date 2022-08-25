@@ -4,7 +4,7 @@ import {formattingLastTime} from 'src/utils';
 import {FilmInfo} from 'src/types/films';
 import {Spinner} from 'src/components';
 import {APIRoute, AppRoute} from 'src/const';
-import './player.css';
+import './video.css';
 
 enum ProgressPlay {
   Start = 0,

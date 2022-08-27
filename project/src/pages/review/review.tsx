@@ -1,26 +1,26 @@
 import {ChangeEvent, Fragment, useState, FormEvent} from 'react';
-import {Link,useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Logo, UserBlock} from 'src/components';
 import {useAppDispatch} from 'src/hooks';
-import {APIRoute} from 'src/const';
+import {APIRoute, AppRoute} from 'src/const';
 import {FilmInfo} from 'src/types/films';
 import {addCommentAction} from 'src/store/api-actions';
 import {processErrorHandle} from 'src/services/process-error-handle';
+import './review.css';
 
 
 const STARS = [10,9,8,7,6,5,4,3,2,1];
 const MIN_LENGTH_TEXT = 50;
 const MAX_LENGTH_TEXT = 400;
 
-const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
-  const {backgroundImage, name, posterImage, id} = data || {};
+const Review = ({data, isLoading}: {data: FilmInfo, isLoading: boolean}): JSX.Element => {
+  const {backgroundImage, name, posterImage, id} = data;
 
   const [filmRating, setFilmRating] = useState(0);
   const [comment, setComment] = useState('');
   const handleChange = (evt: ChangeEvent<HTMLTextAreaElement>) => setComment(evt.target.value);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -29,7 +29,6 @@ const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
       processErrorHandle('Пожалуйста, поставьте оценку и введите комментарий (не меньше 50 символов).');
     } else {
       dispatch(addCommentAction({rating: filmRating, comment, filmId: id}));
-      navigate(`${APIRoute.Films}/${id}`);
     }
 
   };
@@ -52,7 +51,7 @@ const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
                 <Link to={`${APIRoute.Films}/${id}`} className="breadcrumbs__link">{name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <Link className="breadcrumbs__link" to={APIRoute.Review}>Add review</Link>
+                <Link className="breadcrumbs__link" to={`${APIRoute.Films}/${id}/${AppRoute.Review}`}>Add review</Link>
               </li>
             </ul>
           </nav>
@@ -66,7 +65,14 @@ const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
       </div>
 
       <div className="add-review">
-        <form action={`${APIRoute.Films}/${id}`} className="add-review__form" onSubmit={handleSubmit}>
+        <form
+          action={`${APIRoute.Films}/${id}`}
+          className="add-review__form"
+          onSubmit={handleSubmit}
+          // eslint-disable-next-line
+          // @ts-ignore
+          inert={isLoading ? 'true' : undefined}
+        >
           <div className="rating">
             <div className="rating__stars">
               {
@@ -88,10 +94,11 @@ const Review = ({data}: {data: FilmInfo | null}): JSX.Element => {
               onChange={handleChange}
               value={comment}
               maxLength={MAX_LENGTH_TEXT}
+              minLength={MIN_LENGTH_TEXT}
             >
             </textarea>
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit" disabled={Number(comment.length) <= MIN_LENGTH_TEXT}>Post</button>
+              <button className="add-review__btn" type="submit" disabled={Number(comment.length) < MIN_LENGTH_TEXT}>Post</button>
             </div>
           </div>
         </form>

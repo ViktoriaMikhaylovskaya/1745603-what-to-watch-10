@@ -2,7 +2,8 @@ import { createReducer, createAction } from '@reduxjs/toolkit';
 import { FilmInfo } from 'src/types/films';
 
 export const actions = {
-  loadPromoFilm: createAction<FilmInfo>('data/loadPromoFilm'),
+  loadPromoFilm: createAction<FilmInfo>('promo/load'),
+  markAsFavorite: createAction<boolean>('promo/update'),
 };
 
 export type State = {
@@ -15,9 +16,14 @@ const startState: State = {
 
 const reducer = createReducer(startState, (builder) => {
   builder
-    .addCase(actions.loadPromoFilm, (state, {payload}) => {
+    .addCase(actions.loadPromoFilm, (state, { payload }) => {
       state.promoFilm = payload;
+    })
+    .addCase(actions.markAsFavorite, (state, { payload }) => {
+      if (state.promoFilm !== null) {
+        state.promoFilm.isFavorite = payload;
+      }
     });
 });
 
-export {reducer};
+export { reducer };

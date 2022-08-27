@@ -2,12 +2,10 @@ import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, isCheckedAuth} from 'src/const';
 import {Film, Main, MyList, SignIn, Player, Review, LoadingScreen} from 'src/pages';
 import {NotFoundPage, PrivateRoute} from 'src/components';
-import { useFilm } from 'src/store/film/selectors';
 import { useAuth } from 'src/store/selectors';
 
 const App = (): JSX.Element => {
   const {authorizationStatus, isDataLoaded} = useAuth();
-  const {data} = useFilm();
 
   if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (
@@ -30,9 +28,9 @@ const App = (): JSX.Element => {
         }
         />
 
-        <Route path={AppRoute.Review} element={
+        <Route path={`${AppRoute.Film}/${AppRoute.Review}`} element={
           <PrivateRoute authorizationStatus={authorizationStatus}>
-            <Review data={data}/>
+            <Review />
           </PrivateRoute>
         }
         />

@@ -1,39 +1,40 @@
-import { fetchCommentAction, fetchSelectedFilmAction, fetchSimilarFilmAction } from 'src/store/api-actions';
+import { fetchSelectedFilmAction } from 'src/store/api-actions';
 import { useFilm } from 'src/store/film/selectors';
 import { NotFoundPage } from 'src/components';
 import { useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAppDispatch } from 'src/hooks';
 import { FilmInfo } from 'src/types/films';
 import { LoadingScreen } from 'src/pages';
+import { APIRoute } from 'src/const';
 import { useEffect } from 'react';
-import Film from './film';
+import Review from './review';
 
-const FilmContainer = (): JSX.Element => {
-  const { id } = useParams();
+
+const ReviewContainer = (): JSX.Element => {
   const state = useFilm();
+  const { id } = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (typeof id === 'string') {
       dispatch(fetchSelectedFilmAction(Number(id)));
-      dispatch(fetchSimilarFilmAction(Number(id)));
-      dispatch(fetchCommentAction(Number(id)));
     }
   }, [id, dispatch]);
 
+  if (state.addComment.isSuccess) {
+    return <Navigate to={`${APIRoute.Films}/${id}`} />;
 
-  if (state.isLoading) {
+  } else if (state.isLoading) {
     return (
       <LoadingScreen />
     );
-  } else if (state.error) {
-    return (
-      <div>Error - {state.error}</div>
-    );
+
   } else if (state.data !== null) {
     return (
-      <Film
+      <Review
         data={state.data as FilmInfo}
+        isLoading={state.addComment.isLoading}
       />
     );
   }
@@ -42,4 +43,4 @@ const FilmContainer = (): JSX.Element => {
 
 };
 
-export default FilmContainer;
+export default ReviewContainer;

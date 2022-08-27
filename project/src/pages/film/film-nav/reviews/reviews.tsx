@@ -8,8 +8,8 @@ const Reviews = (): JSX.Element => {
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
 
-        {comments.length >= 1
-          ? comments.map((element) => (
+        {comments.data.length >= 1
+          ? comments.data.map((element) => (
             <div className="review" key={element.id}>
               <blockquote className="review__quote">
                 <p className="review__text">{element.comment}</p>

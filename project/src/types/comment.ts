@@ -11,5 +11,5 @@ export type Comment= {
 export type AddComment = {
   comment: string,
   rating: number,
-  filmId: number | undefined,
+  filmId: number,
 };

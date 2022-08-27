@@ -1,19 +1,19 @@
-import {Link, useNavigate} from 'react-router-dom';
-import {FilmCard, Logo, Footer, UserBlock} from 'src/components';
-import {FilmNavigation} from './film-nav';
-import {FilmInfo} from 'src/types/films';
-import {useAppDispatch} from 'src/hooks';
-import {AppRoute, AuthorizationStatus} from 'src/const';
-import {addToFavoriteAction} from 'src/store/api-actions';
-import {useFavorite} from 'src/store/favoriteFilms/selectors';
-import {useFilm} from 'src/store/film/selectors';
-import {useAuth} from 'src/store/selectors';
+import { Link, useNavigate } from 'react-router-dom';
+import { FilmCard, Logo, Footer, UserBlock } from 'src/components';
+import { FilmNavigation } from './film-nav';
+import { FilmInfo } from 'src/types/films';
+import { useAppDispatch } from 'src/hooks';
+import { AppRoute, APIRoute, AuthorizationStatus } from 'src/const';
+import { addToFavoriteAction } from 'src/store/api-actions';
+import { useFavorite } from 'src/store/favoriteFilms/selectors';
+import { useFilm } from 'src/store/film/selectors';
+import { useAuth } from 'src/store/selectors';
 
 
-const Film = ({data}: {data: FilmInfo}): JSX.Element => {
-  const {genre, name, posterImage, released, backgroundImage, id, isFavorite} = data;
-  const {similarFilms} = useFilm();
-  const {authorizationStatus} = useAuth();
+const Film = ({ data }: { data: FilmInfo }): JSX.Element => {
+  const { genre, name, posterImage, released, backgroundImage, id, isFavorite } = data;
+  const { similarFilms } = useFilm();
+  const { authorizationStatus } = useAuth();
   const { favoriteFilms } = useFavorite();
 
   const navigate = useNavigate();
@@ -24,11 +24,10 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
   };
 
   const handleClickMyList = () => {
-    if(authorizationStatus === AuthorizationStatus.NoAuth) {
+    if (authorizationStatus === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.SignIn);
     }
-
-    dispatch(addToFavoriteAction({id, status: !isFavorite}));
+    dispatch(addToFavoriteAction({ id, status: !isFavorite }));
   };
 
   return (
@@ -65,15 +64,15 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     {
                       isFavorite
-                        ? <use xlinkHref="#in-list"/>
-                        : <use xlinkHref="#add"/>
+                        ? <use xlinkHref="#in-list" />
+                        : <use xlinkHref="#add" />
                     }
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">{favoriteFilms.length}</span>
                 </button>
                 {authorizationStatus === AuthorizationStatus.Auth
-                  ? <Link className="btn film-card__button" to={AppRoute.Review}>Add review</Link>
+                  ? <Link className="btn film-card__button" to={`${APIRoute.Films}/${id}/${AppRoute.Review}`}>Add review</Link>
                   : ''}
 
               </div>
@@ -87,7 +86,7 @@ const Film = ({data}: {data: FilmInfo}): JSX.Element => {
               <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
-            <FilmNavigation data={data}/>
+            <FilmNavigation data={data} />
           </div>
         </div>
       </section>

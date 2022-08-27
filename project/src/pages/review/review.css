@@ -1,0 +1,7 @@
+textarea:valid:focus {
+  border:  2px green solid;
+}
+
+textarea:invalid:focus {
+  border: 2px red solid;
+}

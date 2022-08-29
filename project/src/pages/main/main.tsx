@@ -1,34 +1,34 @@
-import {useAppDispatch} from 'src/hooks';
-import {useNavigate} from 'react-router-dom';
-import {Logo, CatalogList, Footer, UserBlock} from 'src/components';
-import {AppRoute, AuthorizationStatus} from 'src/const';
-import {addToFavoriteAction} from 'src/store/api-actions';
-import {useFavorite} from 'src/store/favoriteFilms/selectors';
-import {usePromo} from 'src/store/promo/selectors';
-import {useAuth} from 'src/store/selectors';
-import {actions} from 'src/store/film/reducer';
+import { Logo, CatalogList, Footer, UserBlock } from 'src/components';
+import { addToFavoriteAction } from 'src/store/api-actions';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { AppRoute, AuthorizationStatus } from 'src/const';
+import { actions } from 'src/store/film/reducer';
+import { useNavigate } from 'react-router-dom';
+import favoriteSelector from 'src/store/favorite-films/selectors';
+import promoSelector from 'src/store/promo/selectors';
+import authSelector from 'src/store/selectors';
 
 
 const Main = (): JSX.Element => {
-  const { promoFilm } = usePromo();
-  const { favoriteFilms } = useFavorite();
-  const { authorizationStatus } = useAuth();
-  const {backgroundImage, posterImage, name, genre, released, id, isFavorite} = promoFilm;
+  const { promoFilm } = useAppSelector(promoSelector);
+  const { favoriteFilms } = useAppSelector(favoriteSelector);
+  const { authorizationStatus } = useAppSelector(authSelector);
+  const { backgroundImage, posterImage, name, genre, released, id, isFavorite } = promoFilm;
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleClickPlay = () => {
     dispatch(actions.success(promoFilm));
-    navigate(`player/${id}?backUrl=${window.location.origin}`);
+    navigate(`player/${id}`);
   };
 
   const handleClickMyList = () => {
-    if(authorizationStatus === AuthorizationStatus.NoAuth) {
+    if (authorizationStatus === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.SignIn);
     }
 
-    dispatch(addToFavoriteAction({id, status: !isFavorite}));
+    dispatch(addToFavoriteAction({ id, status: !isFavorite }));
   };
 
   return (
@@ -71,8 +71,8 @@ const Main = (): JSX.Element => {
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         {
                           isFavorite
-                            ? <use xlinkHref="#in-list"/>
-                            : <use xlinkHref="#add"/>
+                            ? <use xlinkHref="#in-list" />
+                            : <use xlinkHref="#add" />
                         }
                       </svg>
                       <span>My list</span>

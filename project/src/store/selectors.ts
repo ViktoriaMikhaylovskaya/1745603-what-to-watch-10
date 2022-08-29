@@ -1,7 +1,5 @@
-import { useAppSelector } from 'src/hooks';
-import { InitalState } from './reducer';
+import { State } from 'src/types/state';
 
-export const useAuth = () => {
-  const data: InitalState = useAppSelector((_) => _.auth);
-  return data;
-};
+export const selector = (state: State) => state.auth;
+
+export default selector;

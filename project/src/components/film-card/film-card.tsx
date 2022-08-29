@@ -1,18 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { MiniPlayer } from 'src/components';
 import { FilmInfo } from 'src/types/films';
 import { useRef, useState } from 'react';
-import { MiniPlayer } from 'src/components';
 import { APIRoute } from 'src/const';
 
-type Props= {
+type Props = {
   filmInfo: FilmInfo;
 };
 
 const SECOND = 1000;
 
-const FilmCard = ({filmInfo}: Props): JSX.Element => {
+const FilmCard = ({ filmInfo }: Props): JSX.Element => {
   const [isCardHover, setIsCardHover] = useState(false);
-  const timer = useRef<any>();
+  const timer = useRef<ReturnType<typeof setTimeout>>();
   const navigate = useNavigate();
 
   const onArticleHover = () => {
@@ -31,7 +31,7 @@ const FilmCard = ({filmInfo}: Props): JSX.Element => {
   return (
     <article className="small-film-card catalog__films-card" onMouseEnter={onArticleHover} onMouseLeave={onArticleLeave} onClick={handleClickFilm}>
       <div className="small-film-card__image">
-        {isCardHover ? <MiniPlayer videoLink={filmInfo.previewVideoLink}/>
+        {isCardHover ? <MiniPlayer videoLink={filmInfo.previewVideoLink} />
           : <img src={filmInfo.previewImage} alt={filmInfo.name} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">

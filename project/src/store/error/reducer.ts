@@ -8,15 +8,15 @@ export type State = {
   error: string | null,
 };
 
-const initalState: State = {
+const initialState: State = {
   error: null,
 };
 
-const reducer = createReducer(initalState, (builder) => {
+const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(actions.setError, (state, {payload}) => {
+    .addCase(actions.setError, (state, { payload }) => {
       state.error = payload;
     });
 });
 
-export {reducer};
+export { reducer };

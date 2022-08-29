@@ -9,15 +9,15 @@ export type State = {
   favoriteFilms: FilmInfo[],
 };
 
-const initalState: State = {
+const initialState: State = {
   favoriteFilms: [],
 };
 
-const reducer = createReducer(initalState, (builder) => {
+const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(actions.favorite, (state, {payload}) => {
+    .addCase(actions.favorite, (state, { payload }) => {
       state.favoriteFilms = payload;
     });
 });
 
-export {reducer};
+export { reducer };

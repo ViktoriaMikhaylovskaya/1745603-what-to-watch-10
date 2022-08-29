@@ -1,12 +1,12 @@
-import { useAppDispatch } from 'src/hooks';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { FilmCard } from 'src/components';
 import { actions } from 'src/store/genres/reducer';
 import { Genre, genres } from 'src/types/genre';
-import { useGenre } from 'src/store/genres/selectors';
+import genreSelector from 'src/store/genres/selectors';
 
 
 const CatalogList = (): JSX.Element => {
-  const state = useGenre();
+  const state = useAppSelector(genreSelector);
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
@@ -30,12 +30,12 @@ const CatalogList = (): JSX.Element => {
 
       <div className="catalog__films-list">
         {
-          state.filmList.map((film) => (<FilmCard key={film.id} filmInfo={film} />))
+          state.films.map((film) => (<FilmCard key={film.id} filmInfo={film} />))
         }
       </div>
 
 
-      {!state.isEndOfTheList && state.filteredList.length !== 0
+      {!state.isEndOfTheList && state.filteredFilms.length !== 0
         ? (
           <div className="catalog__more">
             <button className="catalog__button" type="button" onClick={handleClick}>Show more</button>

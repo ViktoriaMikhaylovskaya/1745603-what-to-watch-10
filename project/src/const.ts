@@ -16,20 +16,15 @@ export enum AuthorizationStatus {
 export enum APIRoute {
   Films = '/films',
   PromoFilm = '/promo',
-  SimilarFilms = '/similar',
   Review = '/review',
-
   FavoriteFilms = '/favorite',
-
   Logout = '/logout',
-
   Comments = '/comments',
 }
 
 export enum DurationTemplate {
   MinutesSeconds = 'm[:] s',
   HoursMinutesSeconds = 'H[:] m[:] s',
-  HoursMinutes = 'H[h] m[m]'
 }
 
 export enum TimeMetric {

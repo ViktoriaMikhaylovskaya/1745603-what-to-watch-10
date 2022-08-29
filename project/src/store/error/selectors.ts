@@ -1,7 +1,5 @@
-import { useAppSelector } from 'src/hooks';
-import { State } from './reducer';
+import { State } from 'src/types/state';
 
-export const useError = () => {
-  const data: State = useAppSelector((_) => _.error);
-  return data;
-};
+export const selector = (state: State) => state.error;
+
+export default selector;

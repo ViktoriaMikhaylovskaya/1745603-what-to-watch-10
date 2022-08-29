@@ -1,7 +1,5 @@
-import { useAppSelector } from 'src/hooks';
-import { State } from './reducer';
+import { State } from 'src/types/state';
 
-export const usePromo = () => {
-  const data: State = useAppSelector((_) => _.promo);
-  return data;
-};
+export const selector = (state: State) => state.promo;
+
+export default selector;

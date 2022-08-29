@@ -3,8 +3,8 @@ export const genres = ['ALL_GENRES', 'COMEDIES', 'CRIME', 'DOCUMENTARY', 'DRAMAS
 export type GenreType = typeof genres[number];
 
 export class Genre {
-  static fromString (s: string): GenreType {
-    switch (s) {
+  static fromString(genre: string): GenreType {
+    switch (genre) {
       case 'Comedy': {
         return 'COMEDIES';
       }
@@ -38,7 +38,7 @@ export class Genre {
     }
   }
 
-  static toString (genre: GenreType): string {
+  static toString(genre: GenreType): string {
     switch (genre) {
       case 'COMEDIES': {
         return 'Comedy';

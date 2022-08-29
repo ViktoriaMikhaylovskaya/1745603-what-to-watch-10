@@ -1,18 +1,18 @@
 import { fetchSelectedFilmAction } from 'src/store/api-actions';
-import { useFilm } from 'src/store/film/selectors';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { NotFoundPage } from 'src/components';
 import { useParams } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
-import { useAppDispatch } from 'src/hooks';
 import { FilmInfo } from 'src/types/films';
 import { LoadingScreen } from 'src/pages';
 import { APIRoute } from 'src/const';
 import { useEffect } from 'react';
 import Review from './review';
+import filmSelector from 'src/store/film/selectors';
 
 
 const ReviewContainer = (): JSX.Element => {
-  const state = useFilm();
+  const state = useAppSelector(filmSelector);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 

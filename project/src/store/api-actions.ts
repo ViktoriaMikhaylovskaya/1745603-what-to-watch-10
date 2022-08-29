@@ -5,7 +5,7 @@ import { AuthData, UserData } from 'src/types/user-data';
 import { actions } from './reducer';
 import { actions as genreAction } from './genres/reducer';
 import { actions as filmActions } from 'src/store/film/reducer';
-import { actions as favoriteActions } from 'src/store/favoriteFilms/reducer';
+import { actions as favoriteActions } from 'src/store/favorite-films/reducer';
 import { actions as promoActions } from 'src/store/promo/reducer';
 import { actions as errorActions } from 'src/store/error/reducer';
 import { FilmInfo } from 'src/types/films';

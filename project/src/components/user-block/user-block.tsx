@@ -1,22 +1,22 @@
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { AppRoute, AuthorizationStatus } from 'src/const';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'src/hooks';
 import { logoutAction } from 'src/store/api-actions';
-import { useAuth } from 'src/store/selectors';
+import authSelector from 'src/store/selectors';
 
 const UserBlock = (): JSX.Element => {
-  const {authorizationStatus} = useAuth();
+  const { authorizationStatus } = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if(authorizationStatus === AuthorizationStatus.Auth) {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(logoutAction());
     }
   };
 
   const handleClickAvatar = () => {
-    if(authorizationStatus === AuthorizationStatus.NoAuth) {
+    if (authorizationStatus === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.SignIn);
     }
     navigate(AppRoute.MyList);

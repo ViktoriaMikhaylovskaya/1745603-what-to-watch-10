@@ -1,7 +1,5 @@
-import { useAppSelector } from 'src/hooks';
-import { InitalState } from './reducer';
+import { State } from 'src/types/state';
 
-export const useGenre = () => {
-  const data: InitalState = useAppSelector((_) => _.genre);
-  return data;
-};
+export const selector = (state: State) => state.genre;
+
+export default selector;

@@ -1,9 +1,9 @@
-import {useState, useEffect, useRef, Fragment, ChangeEvent} from 'react';
-import {useNavigate, useSearchParams} from 'react-router-dom';
-import {formattingLastTime} from 'src/utils';
-import {FilmInfo} from 'src/types/films';
-import {Spinner} from 'src/components';
-import {APIRoute, AppRoute} from 'src/const';
+import { useState, useEffect, useRef, Fragment, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { formattingLastTime } from 'src/utils';
+import { FilmInfo } from 'src/types/films';
+import { Spinner } from 'src/components';
+import { useBoolean } from 'src/hooks';
 import './video.css';
 
 enum ProgressPlay {
@@ -11,15 +11,12 @@ enum ProgressPlay {
   End = 100,
 }
 
-const Video = ({data}: {data: FilmInfo}): JSX.Element => {
-  const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
+const Video = ({ data }: { data: FilmInfo }): JSX.Element => {
+  const [isLoading, { setFalse: loadingIsComplete }] = useBoolean();
+  const [isPlaying, { set: setIsPlaying, toggle: handleClickButton }] = useBoolean();
+
   const [progress, setProgress] = useState<number>(ProgressPlay.Start);
   const [lastTime, setLastTime] = useState<number>(ProgressPlay.Start);
-
-  const clickButton = () => setIsPlaying(!isPlaying);
-  const loadingData = () => setIsLoading(false);
 
   const formatLastTime = formattingLastTime(lastTime);
 
@@ -32,7 +29,7 @@ const Video = ({data}: {data: FilmInfo}): JSX.Element => {
       return;
     }
 
-    element.addEventListener('loadeddata', loadingData);
+    element.addEventListener('loadeddata', loadingIsComplete);
 
     if (isPlaying) {
       element.play();
@@ -42,19 +39,16 @@ const Video = ({data}: {data: FilmInfo}): JSX.Element => {
     }
 
     return () => {
-      element.removeEventListener('loadeddata', loadingData);
+      element.removeEventListener('loadeddata', loadingIsComplete);
     };
-  }, [isPlaying]);
+  }, [isPlaying, loadingIsComplete]);
 
   const navigate = useNavigate();
 
   const handleClickExit = () => {
-    if(searchParams.get('backUrl')) {
-      navigate(AppRoute.Main);
-    } else {
-      navigate(`${APIRoute.Films}/${data.id}`);
-      setIsPlaying(false);
-    }
+    navigate(-1);
+    setIsPlaying(false);
+
   };
 
   const handleTimeUpdate = () => {
@@ -110,7 +104,7 @@ const Video = ({data}: {data: FilmInfo}): JSX.Element => {
 
       <button type="button" className="player__exit" onClick={handleClickExit}>Exit</button>
 
-      {isLoading ? <Spinner /> : '' }
+      {isLoading ? <Spinner /> : ''}
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -129,7 +123,7 @@ const Video = ({data}: {data: FilmInfo}): JSX.Element => {
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play" disabled={isLoading} onClick={clickButton}>
+          <button type="button" className="player__play" disabled={isLoading} onClick={handleClickButton}>
             <svg viewBox="0 0 19 19" width="19" height="19">
               <use xlinkHref={isPlaying ? '#pause' : '#play-s'}></use>
             </svg>

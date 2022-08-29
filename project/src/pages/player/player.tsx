@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useAppDispatch } from 'src/hooks';
-import { LoadingScreen } from 'src/pages';
-import { Video, NotFoundPage } from 'src/components';
-import { FilmInfo } from 'src/types/films';
-import { useFilm } from 'src/store/film/selectors';
 import { fetchSelectedFilmAction } from 'src/store/api-actions';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { Video, NotFoundPage } from 'src/components';
+import { useParams } from 'react-router-dom';
+import { FilmInfo } from 'src/types/films';
+import { LoadingScreen } from 'src/pages';
+import { useEffect } from 'react';
+import filmSelector from 'src/store/film/selectors';
 
 const Player = (): JSX.Element => {
-  const state = useFilm();
+  const state = useAppSelector(filmSelector);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 

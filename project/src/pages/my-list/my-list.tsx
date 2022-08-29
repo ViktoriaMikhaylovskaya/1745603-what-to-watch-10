@@ -1,8 +1,9 @@
 import { FilmCard, Logo, Footer, UserBlock } from 'src/components';
-import { useFavorite } from 'src/store/favoriteFilms/selectors';
+import { useAppSelector } from 'src/hooks';
+import favoriteSelector from 'src/store/favorite-films/selectors';
 
 const MyList = (): JSX.Element => {
-  const { favoriteFilms } = useFavorite();
+  const { favoriteFilms } = useAppSelector(favoriteSelector);
 
   return (
     <div className="user-page">
@@ -19,7 +20,7 @@ const MyList = (): JSX.Element => {
         <div className="catalog__films-list">
 
           {favoriteFilms.length === 0
-            ? <div style={{display: 'flex',flexWrap: 'nowrap',width:'100%',justifyContent: 'center'}}>Список пуст.</div>
+            ? <div style={{ display: 'flex', flexWrap: 'nowrap', width: '100%', justifyContent: 'center' }}>Список пуст.</div>
             : favoriteFilms.map((film) => (
               <FilmCard key={film.id} filmInfo={film} />
             ))}

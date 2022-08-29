@@ -1,25 +1,25 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { FilmCard, Logo, Footer, UserBlock } from 'src/components';
-import { FilmNavigation } from './film-nav';
-import { FilmInfo } from 'src/types/films';
-import { useAppDispatch } from 'src/hooks';
 import { AppRoute, APIRoute, AuthorizationStatus } from 'src/const';
+import { FilmCard, Logo, Footer, UserBlock } from 'src/components';
 import { addToFavoriteAction } from 'src/store/api-actions';
-import { useFavorite } from 'src/store/favoriteFilms/selectors';
-import { useFilm } from 'src/store/film/selectors';
-import { useAuth } from 'src/store/selectors';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { Link, useNavigate } from 'react-router-dom';
+import { FilmInfo } from 'src/types/films';
+import FilmNavigation from './film-nav/film-navigation';
+import favoriteSelector from 'src/store/favorite-films/selectors';
+import filmSelector from 'src/store/film/selectors';
+import authSelector from 'src/store/selectors';
 
 
 const Film = ({ data }: { data: FilmInfo }): JSX.Element => {
   const { genre, name, posterImage, released, backgroundImage, id, isFavorite } = data;
-  const { similarFilms } = useFilm();
-  const { authorizationStatus } = useAuth();
-  const { favoriteFilms } = useFavorite();
+  const { similarFilms } = useAppSelector(filmSelector);
+  const { authorizationStatus } = useAppSelector(authSelector);
+  const { favoriteFilms } = useAppSelector(favoriteSelector);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
+  const handleClickPlay = () => {
     navigate(`/player/${id}`);
   };
 
@@ -54,7 +54,7 @@ const Film = ({ data }: { data: FilmInfo }): JSX.Element => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={handleClick}>
+                <button className="btn btn--play film-card__button" type="button" onClick={handleClickPlay}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>

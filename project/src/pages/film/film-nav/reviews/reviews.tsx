@@ -1,8 +1,9 @@
-import { useFilm } from 'src/store/film/selectors';
-import {humanizeDueDate} from 'src/utils';
+import filmSelector from 'src/store/film/selectors';
+import { humanizeDueDate } from 'src/utils';
+import { useAppSelector } from 'src/hooks';
 
 const Reviews = (): JSX.Element => {
-  const {comments} = useFilm();
+  const { comments } = useAppSelector(filmSelector);
 
   return (
     <div className="film-card__reviews film-card__row">
@@ -23,7 +24,7 @@ const Reviews = (): JSX.Element => {
               <div className="review__rating">{element.rating}</div>
             </div>
           ))
-          : <p style={{color: 'black'}}>Комментариев пока нет.</p>}
+          : <p style={{ color: 'black' }}>Комментариев пока нет.</p>}
       </div>
     </div>
   );

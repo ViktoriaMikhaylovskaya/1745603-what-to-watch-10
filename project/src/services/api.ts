@@ -1,12 +1,9 @@
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import Token from './token';
-import {processErrorHandle} from './process-error-handle';
-import {AUTH_TOKEN_KEY_NAME} from 'src/services/token';
+import { processErrorHandle } from './process-error-handle';
+import { AUTH_TOKEN_KEY_NAME } from 'src/services/token';
 
 class StatusCode {
-  static BAD_REQUEST = 400;
-  static UNAUTHORIZED = 401;
-  static NOT_FOUND = 404;
   static ALL_GOOD = 200;
 
   static ALLOWED_STATUSED = [StatusCode.ALL_GOOD];

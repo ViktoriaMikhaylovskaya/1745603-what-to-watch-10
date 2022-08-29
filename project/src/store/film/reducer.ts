@@ -18,7 +18,7 @@ export const actions = {
   addCommentSuccess: createAction<Comment[]>('comment/addCommentSuccess'),
 };
 
-export type InitalState = {
+export type initialState = {
   data: FilmInfo | null,
   isLoading: boolean,
   error: string | null,
@@ -27,7 +27,7 @@ export type InitalState = {
   comments: { data: Comment[], isLoading: boolean, error: string | null },
 };
 
-const initalState: InitalState = {
+const startState: initialState = {
   data: null,
   isLoading: false,
   error: null,
@@ -37,7 +37,7 @@ const initalState: InitalState = {
   comments: { data: [], isLoading: false, error: null },
 };
 
-const reducer = createReducer(initalState, (builder) => {
+const reducer = createReducer(startState, (builder) => {
   builder
     .addCase(actions.fetch, (state, { payload }) => {
       state.isLoading = true;
